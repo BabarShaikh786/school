@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - Ennovyx</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/icon-final.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #7c3aed;
+            --dark: #0a0a0a;
+            --gray-50: #fafafa;
+            --gray-200: #e5e5e5;
+            --gray-500: #737373;
+            --gray-600: #525252;
+        }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; color: var(--dark); line-height: 1.6; background: var(--gray-50); }
+        
+        nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.06); padding: 12px 20px; z-index: 1000; border-radius: 60px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 70%; max-width: 1200px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; text-decoration: none; color: var(--dark); }
+        .logo-icon { width: 24px; height: 24px; background: var(--primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+        .get-started-btn { background: var(--primary); color: white; padding: 8px 20px; border-radius: 40px; font-weight: 600; font-size: 13px; text-decoration: none; }
+
+        .hero-section { margin-top: 120px; padding: 60px 40px; max-width: 1200px; margin-left: auto; margin-right: auto; text-align: center; background: linear-gradient(180deg, rgba(167,139,250,0.15) 0%, rgba(196,181,253,0.08) 30%, rgba(255,255,255,0) 60%); border-radius: 40px; }
+        h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; background: linear-gradient(97deg, #202020 43%, #8f8f8f 111%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 125%; letter-spacing: -1.68px; }
+        .subtitle { font-size: 18px; color: var(--gray-500); margin-bottom: 40px; }
+
+        .values-section { max-width: 1200px; margin: 60px auto; padding: 0 40px; }
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        .value-card { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .value-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .value-card i { font-size: 36px; color: var(--primary); margin-bottom: 16px; }
+        .value-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .value-card p { font-size: 14px; color: var(--gray-600); margin: 0; }
+
+        .jobs-section { max-width: 1200px; margin: 60px auto; padding: 0 40px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 36px; font-weight: 700; margin-bottom: 12px; }
+        
+        .job-card { background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 20px; transition: all 0.3s; cursor: pointer; }
+        .job-card:hover { transform: translateX(4px); border-left: 4px solid var(--primary); }
+        .job-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px; }
+        .job-title { font-size: 24px; font-weight: 700; color: var(--dark); }
+        .job-type { background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .job-meta { display: flex; gap: 24px; margin-bottom: 16px; }
+        .job-meta-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--gray-600); }
+        .job-meta-item i { color: var(--primary); }
+        .job-description { color: var(--gray-600); font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
+        .job-requirements { margin-top: 16px; }
+        .job-requirements h4 { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+        .job-requirements ul { margin-left: 20px; color: var(--gray-600); }
+        .job-requirements li { margin-bottom: 6px; }
+        .apply-btn { background: var(--dark); color: white; padding: 12px 28px; border: none; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 16px; transition: all 0.2s; }
+        .apply-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+        footer { background: var(--gray-50); padding: 40px; text-align: center; border-top: 1px solid var(--gray-200); color: var(--gray-600); margin-top: 60px; }
+
+        @media (max-width: 968px) {
+            .values-grid { grid-template-columns: 1fr; }
+            .job-header { flex-direction: column; gap: 12px; }
+        }
+        @media (max-width: 768px) {
+            nav { width: 90%; padding: 10px 16px; }
+            .hero-section { margin-top: 90px; padding: 40px 20px; }
+            h1 { font-size: 32px; }
+            .values-section, .jobs-section { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="../images/icon-final.png" alt="" class="logo-icon" style="background-color: #0a0a0a00;">
+                <span>Ennovyx</span>
+            </a>
+            <a href="/" class="get-started-btn">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <h1>Join the Ennovyx Team</h1>
+        <p class="subtitle">Help us build the future of student productivity</p>
+    </div>
+
+    <div class="values-section">
+        <div class="section-header">
+            <h2>Why Work at Ennovyx?</h2>
+            <p style="color: var(--gray-500); font-size: 16px;">We're a small, passionate team on a mission to transform how students learn</p>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-rocket"></i>
+                <h3>Make Real Impact</h3>
+                <p>Your work will directly help thousands of students succeed academically</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h3>Collaborative Culture</h3>
+                <p>Work with a talented, supportive team that values your ideas</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Growth Opportunities</h3>
+                <p>Learn new skills and advance your career in a fast-growing startup</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-home"></i>
+                <h3>Remote-First</h3>
+                <p>Work from anywhere with flexible hours and work-life balance</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Innovation Focused</h3>
+                <p>Experiment with cutting-edge technologies and push boundaries</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-heart"></i>
+                <h3>Mission Driven</h3>
+                <p>Be part of something meaningful that changes lives</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="jobs-section">
+        <div class="section-header">
+            <h2>Open Positions</h2>
+            <p style="color: var(--gray-500); font-size: 16px;">Join our growing team</p>
+        </div>
+
+        <div class="job-card">
+            <div class="job-header">
+                <div>
+                    <div class="job-title">Marketing Intern</div>
+                </div>
+                <div class="job-type">Internship</div>
+            </div>
+            <div class="job-meta">
+                <div class="job-meta-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Remote</span>
+                </div>
+                <div class="job-meta-item">
+                    <i class="fas fa-clock"></i>
+                    <span>3-6 months</span>
+                </div>
+                <div class="job-meta-item">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Part-time / Full-time</span>
+                </div>
+            </div>
+            <div class="job-description">
+                <p>We're looking for a creative and motivated Marketing Intern to join our team and help us spread the word about Ennovyx. You'll work directly with the founding team to develop and execute marketing campaigns, create engaging content, and grow our student community.</p>
+            </div>
+            <div class="job-requirements">
+                <h4>What You'll Do:</h4>
+                <ul>
+                    <li>Create engaging social media content (Instagram, TikTok, Twitter, LinkedIn)</li>
+                    <li>Develop marketing campaigns targeting students and universities</li>
+                    <li>Write blog posts, case studies, and email newsletters</li>
+                    <li>Analyze marketing metrics and optimize campaigns</li>
+                    <li>Engage with our student community and gather feedback</li>
+                    <li>Help with product launches and feature announcements</li>
+                </ul>
+            </div>
+            <div class="job-requirements">
+                <h4>Requirements:</h4>
+                <ul>
+                    <li>Currently pursuing or recently completed a degree in Marketing, Communications, or related field</li>
+                    <li>Strong writing and communication skills</li>
+                    <li>Familiarity with social media platforms and trends</li>
+                    <li>Creative mindset with attention to detail</li>
+                    <li>Basic knowledge of design tools (Canva, Figma) is a plus</li>
+                    <li>Passion for education technology and helping students</li>
+                </ul>
+            </div>
+            <div class="job-requirements">
+                <h4>What We Offer:</h4>
+                <ul>
+                    <li>Hands-on experience with a fast-growing ed-tech startup</li>
+                    <li>Mentorship from experienced marketers and founders</li>
+                    <li>Flexible remote work schedule</li>
+                    <li>Stipend based on experience</li>
+                    <li>Potential for full-time conversion</li>
+                    <li>Portfolio-building opportunities</li>
+                </ul>
+            </div>
+            <button class="apply-btn" onclick="applyJob('Marketing Intern')">Apply Now →</button>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #d946ef 0%, #ec4899 25%, #f97316 75%, #f59e0b 100%); padding: 60px 40px; border-radius: 24px; text-align: center; color: white; margin-top: 40px;">
+            <h2 style="font-size: 32px; margin-bottom: 16px; color: white;">Don't See Your Role?</h2>
+            <p style="font-size: 16px; margin-bottom: 24px; opacity: 0.95;">We're always looking for talented people. Send us your resume and let's talk!</p>
+            <a href="mailto:careers@ennovyx.com" style="background: white; color: #1a1a1a; padding: 14px 32px; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block;">Email Us Your Resume</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ennovyx. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function applyJob(position) {
+            alert(`Thank you for your interest in the ${position} position!\n\nPlease send your resume and cover letter to: careers@ennovyx.com\n\nMake sure to mention "${position}" in the subject line.`);
+        }
+    </script>
+
+</body>
+</html>

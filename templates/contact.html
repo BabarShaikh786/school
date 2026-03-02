@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Ennovyx</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+       <link rel="icon" type="image/png" sizes="32x32" href="../images/icon-final.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #7c3aed;
+            --dark: #0a0a0a;
+            --gray-50: #fafafa;
+            --gray-200: #e5e5e5;
+            --gray-500: #737373;
+            --gray-600: #525252;
+        }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; color: var(--dark); line-height: 1.6; background: var(--gray-50); }
+        
+        nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.06); padding: 12px 20px; z-index: 1000; border-radius: 60px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 70%; max-width: 1200px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; text-decoration: none; color: var(--dark); }
+        .logo-icon { width: 24px; height: 24px; background: var(--primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+        .get-started-btn { background: var(--primary); color: white; padding: 8px 20px; border-radius: 40px; font-weight: 600; font-size: 13px; text-decoration: none; }
+
+        .container { max-width: 1000px; margin: 120px auto 60px; padding: 40px; }
+        h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; background: linear-gradient(97deg, #202020 43%, #8f8f8f 111%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 125%; letter-spacing: -1.68px; text-align: center; }
+        .subtitle { font-size: 18px; color: var(--gray-500); margin-bottom: 60px; text-align: center; }
+
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+        
+        .contact-form { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--dark); font-size: 14px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--gray-200); border-radius: 12px; font-family: inherit; font-size: 14px; transition: all 0.2s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .submit-btn { width: 100%; background: var(--primary); color: white; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124, 58, 237, 0.3); }
+
+        .contact-info { display: flex; flex-direction: column; gap: 20px; }
+        .info-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: all 0.2s; }
+        .info-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .info-card i { font-size: 32px; color: var(--primary); margin-bottom: 16px; }
+        .info-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        .info-card p { font-size: 14px; color: var(--gray-600); margin: 0; }
+        .info-card a { color: var(--primary); text-decoration: none; font-weight: 500; }
+
+        .social-links { display: flex; gap: 12px; margin-top: 16px; }
+        .social-link { width: 40px; height: 40px; border-radius: 10px; background: var(--gray-50); display: flex; align-items: center; justify-content: center; color: var(--gray-600); transition: all 0.2s; }
+        .social-link:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+
+        footer { background: var(--gray-50); padding: 40px; text-align: center; border-top: 1px solid var(--gray-200); color: var(--gray-600); }
+
+        @media (max-width: 768px) {
+            nav { width: 90%; padding: 10px 16px; }
+            .container { margin: 90px 20px 40px; padding: 20px; }
+            h1 { font-size: 32px; }
+            .contact-grid { grid-template-columns: 1fr; gap: 20px; }
+            .contact-form { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="../images/icon-final.png" alt="" class="logo-icon" style="background-color: #0a0a0a00;">
+                <span>Ennovyx</span>
+            </a>
+            <a href="/" class="get-started-btn">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Get in Touch</h1>
+        <p class="subtitle">Have questions? We'd love to hear from you.</p>
+
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h2 style="font-size: 24px; margin-bottom: 24px;">Send us a message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="bug">Report a Bug</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="billing">Billing Question</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" placeholder="Tell us more about your inquiry..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <div class="info-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>Our team typically responds within 24 hours</p>
+                    <a href="mailto:support@ennovyx.com">support@ennovyx.com</a>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-life-ring"></i>
+                    <h3>Help Center</h3>
+                    <p>Browse our documentation and FAQs</p>
+                    <a href="#">Visit Help Center →</a>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Community</h3>
+                    <p>Join our student community</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Report Security Issues</h3>
+                    <p>Found a vulnerability? Let us know</p>
+                    <a href="mailto:security@ennovyx.com">security@ennovyx.com</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ennovyx. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+            this.reset();
+        });
+    </script>
+
+</body>
+</html>

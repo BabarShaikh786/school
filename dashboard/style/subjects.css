@@ -1,0 +1,649 @@
+/* ========================================
+   SUBJECTS PAGE - CSS VARIABLES VERSION
+   ======================================== */
+
+:root {
+    --st-primary: #0071e3;
+    --st-bg: var(--bg-tertiary);
+    --st-card: var(--card-bg);
+    --st-text: var(--text-primary);
+    --st-text-light: var(--text-secondary);
+    --st-border: var(--border-subtle);
+    --st-radius: var(--radius-md);
+}
+
+body.dark-theme {
+    --st-primary: #5b9fff;
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+
+.sub-flex {
+    display: flex;
+    border-radius: 100px;
+}
+
+/* ========================================
+   SIDEBAR
+   ======================================== */
+
+#st-sidebar-root {
+    width: 220px;
+    background: var(--card-bg);
+    border-right: 1px solid var(--st-border);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    transition: background-color var(--transition-normal);
+}
+
+.st-nav-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--st-text-light);
+    letter-spacing: 0.5px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.st-subject-pill {
+    padding: 10px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background var(--transition-fast);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color:  var(--text-primary);
+}
+
+.st-subject-pill:hover {
+    background: var(--bg-hover);
+}
+
+.st-subject-pill.st-active {
+    background: #eef7ff;
+    color: var(--st-primary);
+}
+
+body.dark-theme .st-subject-pill.st-active {
+    background: rgba(91, 159, 255, 0.15);
+    color: var(--st-primary);
+}
+
+.st-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.st-btn-new-sub {
+    margin-top: auto;
+    padding: 8px;
+    border: 1px dashed var(--st-border);
+    border-radius: var(--radius-md);
+    background: transparent;
+    cursor: pointer;
+    color: var(--st-primary);
+    font-size: 12px;
+    transition: all var(--transition-fast);
+}
+
+.st-btn-new-sub:hover {
+    background: var(--bg-hover);
+    border-style: solid;
+}
+
+/* ========================================
+   WORKSPACE
+   ======================================== */
+
+#st-main-canvas {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    position: relative;
+    transition: background-color var(--transition-normal);
+}
+
+.st-canvas-head {
+    padding: 20px 25px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.st-canvas-head h2 {
+    color: var(--text-primary);
+}
+
+.st-canvas-tabs {
+    display: flex;
+    gap: 20px;
+    padding: 0 25px;
+    border-bottom: 1px solid var(--st-border);
+    margin-top: 15px;
+}
+
+.st-tab-link {
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.st-tab-link:hover {
+    color:  var(--text-primary);
+}
+
+.st-tab-link.st-active {
+    color: var(--text-primary);
+}
+
+.st-tab-link.st-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--st-primary);
+}
+
+/* ========================================
+   NOTES ENGINE
+   ======================================== */
+
+.st-notes-split {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+.st-notes-sidebar {
+    width: 180px;
+    border-right: 1px solid var(--st-border);
+    padding: 10px;
+    overflow-y: auto;
+    background: var(--card-bg);
+}
+
+.st-note-entry {
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    margin-bottom: 6px;
+    background: var(--card-bg);
+    border: 1px solid var(--st-border);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.st-note-entry:hover {
+    background: var(--bg-hover);
+}
+
+.st-note-entry.st-active {
+    border-color: var(--st-primary);
+    background: rgba(0, 113, 227, 0.05);
+}
+
+body.dark-theme .st-note-entry.st-active {
+    background: rgba(91, 159, 255, 0.1);
+}
+
+.st-editor-zone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    overflow-y: auto;
+}
+
+.st-editor-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.st-editor-title {
+    font-size: 24px;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    width: 100%;
+    background: transparent;
+    color:  var(--text-primary);
+}
+
+.st-editor-title::placeholder {
+    color: var(--input-placeholder);
+}
+
+.st-rich-area {
+    flex: 1;
+    outline: none;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 200px;
+    color:  var(--text-primary);
+}
+
+.st-rich-area img {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    margin: 10px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   LISTS (DOCUMENTS & TASKS)
+   ======================================== */
+
+.st-content-wrapper {
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.st-list-row {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--st-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    transition: all var(--transition-fast);
+}
+
+.st-list-row:hover {
+    background: var(--bg-hover);
+    box-shadow: var(--shadow-sm);
+}
+
+.st-row-info {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.st-row-info b {
+    color: var(--text-primary);
+}
+
+.st-row-info small {
+    color: var(--st-text-light);
+}
+
+.st-row-actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.st-btn {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    border: none;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.st-btn-blue {
+    background: var(--st-primary);
+    color: var(--text-inverted);
+}
+
+.st-btn-blue:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.st-btn-gray {
+    background: var(--bg-hover);
+    color:  var(--text-primary);
+}
+
+.st-btn-gray:hover {
+    background: var(--bg-active);
+}
+
+.st-btn-red {
+    background: #fff0f0;
+    color: #ff3b30;
+}
+
+body.dark-theme .st-btn-red {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.st-btn-red:hover {
+    opacity: 0.9;
+}
+
+/* ========================================
+   MODALS
+   ======================================== */
+
+.st-modal-mask {
+    position: fixed;
+    inset: 0;
+    background: var(--modal-overlay);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+}
+
+.st-modal-mask.zx1_state_is_active {
+    display: flex;
+}
+
+.st-modal-container {
+    background: var(--bg-primary);
+    padding: 25px;
+    border-radius: var(--radius-xl);
+    width: 340px;
+    box-shadow: var(--shadow-xl);
+    margin-top: 300px;
+    transition: background-color var(--transition-normal);
+}
+
+.st-modal-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--st-text-light);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.st-input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 15px;
+    font-size: 13px;
+    outline-color: var(--st-primary);
+    background: var(--input-bg);
+    color: var(--text-primary);
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.st-input-field:focus {
+    background: var(--input-focus-bg);
+    border-color: var(--st-primary);
+}
+
+.st-input-field::placeholder {
+    color: var(--input-placeholder);
+}
+
+.yl5_dropdown_select_element {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-md);
+    margin-bottom: 15px;
+    font-size: 13px;
+    outline-color: var(--st-primary);
+    background: var(--input-bg);
+    color:  var(--text-primary);
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.yl5_dropdown_select_element:focus {
+    background: var(--input-focus-bg);
+    border-color: var(--st-primary);
+}
+
+.st-color-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.st-color-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.st-color-circle:hover {
+    transform: scale(1.1);
+}
+
+.st-color-circle.st-selected {
+    border-color:  var(--text-primary);
+    box-shadow: 0 0 0 2px var(--card-bg), 0 0 0 4px var(--text-primary);
+}
+
+/* ========================================
+   FULL VIEWER
+   ======================================== */
+
+#st-full-viewer {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-primary);
+    z-index: 6000;
+    display: none;
+    flex-direction: column;
+    width: 900px;
+    height: 300px;
+    margin: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    transition: background-color var(--transition-normal);
+}
+
+#st-view-label {
+    color:  var(--text-primary);
+}
+
+#st-view-canvas {
+    color: var(--text-primary);
+}
+
+/* ========================================
+   EMPTY STATES
+   ======================================== */
+
+.st-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.st-empty-state h3 {
+    color: var(--text-secondary);
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+/* ========================================
+   DOCUMENT UPLOAD
+   ======================================== */
+
+.st-doc-preview {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    #st-sidebar-root {
+        width: 60px;
+        padding: 10px 5px;
+    }
+
+    .st-subject-pill span:not(.st-dot),
+    .st-nav-header,
+    .st-btn-new-sub {
+        display: none;
+    }
+
+    .st-notes-sidebar {
+        width: 100px;
+    }
+
+    .st-row-actions .st-btn {
+        padding: 6px 8px;
+    }
+
+    .st-modal-container {
+        width: 90%;
+        max-width: 340px;
+    }
+
+    .st-canvas-head {
+        padding: 15px;
+    }
+
+    .st-editor-zone {
+        padding: 15px;
+    }
+
+    .st-editor-title {
+        font-size: 20px;
+    }
+}
+
+/* ========================================
+   SCROLLBAR
+   ======================================== */
+
+.st-notes-sidebar::-webkit-scrollbar,
+.st-editor-zone::-webkit-scrollbar {
+    width: 6px;
+}
+
+.st-notes-sidebar::-webkit-scrollbar-track,
+.st-editor-zone::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.st-notes-sidebar::-webkit-scrollbar-thumb,
+.st-editor-zone::-webkit-scrollbar-thumb {
+    background: var(--border-primary);
+    border-radius: 3px;
+}
+
+.st-notes-sidebar::-webkit-scrollbar-thumb:hover,
+.st-editor-zone::-webkit-scrollbar-thumb:hover {
+    background: var(--border-focus);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.st-modal-container {
+    animation: fadeIn 0.3s ease;
+}
+
+.st-list-row {
+    animation: fadeIn 0.2s ease;
+}
+
+/* ========================================
+   MODAL ACTIONS
+   ======================================== */
+
+.kd3_action_buttons_row_container {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.wp6_generic_clickable_button {
+    flex: 1;
+    padding: 10px;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all var(--transition-fast);
+}
+
+.qc9_primary_action_button_style {
+    background: var(--st-primary);
+    color: var(--text-inverted);
+}
+
+.qc9_primary_action_button_style:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.hx7_secondary_action_button_style {
+    background: var(--bg-hover);
+    color:  var(--text-primary);
+}
+
+.hx7_secondary_action_button_style:hover {
+    background: var(--bg-active);
+}
+
+/* ========================================
+   SECTION TITLES
+   ======================================== */
+
+.st-content-wrapper h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color:  var(--text-primary);
+}
+
+.st-content-wrapper p {
+    color: var(--st-text-light);
+    font-size: 11px;
+    margin-bottom: 15px;
+}

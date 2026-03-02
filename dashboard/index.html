@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Ennovyx">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Space Dashboard</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="style/calander.css">
+  <link rel="stylesheet" href="style/tasks.css">
+  <link rel="stylesheet" href="style/expenses.css">
+  <link rel="stylesheet" href="style/subjects.css">
+  <link rel="stylesheet" href="style/main.css">
+  <link rel="stylesheet" href="style/home.css">
+  <link rel="stylesheet" href="style/persnalprogress.css">
+  <link rel="stylesheet" href="style/docs.css">
+  <link rel="stylesheet" href="style/brains.css">
+  <link rel="stylesheet" href="style/university.css">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="images/icon-final.png">
+
+
+<style>
+</style>
+
+
+<style>
+/* Responsive side panels */
+@media (max-width: 768px) {
+  .side-panel {
+    width: 100vw !important;
+    max-width: 100vw !important;
+  }
+  /* Stack settings content with enough room to scroll */
+  #settings-panel {
+    padding-bottom: 80px;
+  }
+}
+</style>
+</head>
+
+
+<style>
+</style>
+
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="brand" id="brandToggle"><img src="images/icon-final.png" alt="" width="30px" height="30px" ><span>Ennovyx</span></div>
+    <button class="collapse-btn" id="collapseBtn"><i class='bx bx-sidebar'></i></button>
+  </div>
+
+  <div class="nav">
+    <button class="active" data-target="home"><i class='bx bx-home' id="home-icon"></i><span>Home</span></button>
+    <button data-target="tasks"><i class='bx bx-check-square'></i><span>Tasks</span></button>
+    <button data-target="subjects"><i class='bx bx-book'></i><span>Subjects</span></button>
+    <button data-target="calendar"><i class='bx bx-calendar'></i><span>Calendar</span></button>
+    <button data-target="ai"><i class='bx bx-file'></i><span>Documents</span></button>
+    <button data-target="ai-research-page"><i class='bx bx-brain'></i><span>AI Research</span></button>
+    <button data-target="university"><i class='bx bx-book'></i><span>e-university</span></button>
+    <button data-target="discipline"><i class='bx bx-target-lock'></i><span>Discipline  Tracker</span></button>
+    <button data-target="expenses"><i class='bx bx-wallet'></i><span>Expenses</span></button>
+    
+  </div>
+
+  <div class="logout">
+    <a href="../signup" style="text-decoration: none;"><button><i class='bx bx-log-out'></i><span>Logout</span></button></a>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="top-left" id="">Study Space</div>
+    <div class="top-right">
+      <div class="search">
+    <i class='bx bx-search'></i>
+    <input placeholder="Search tasks, notes, documents..." id="global-search-input" autocomplete="off">
+</div>
+<!-- Add search results dropdown -->
+<div id="search-results" ></div>
+       <button class="icon-btn" onclick="openNotificationPanel()" title="Notifications">
+            <i class='bx bx-bell'></i>
+            <span id="notification-badge" style="
+                position: absolute;
+                top: 6px;
+                right: 6px;
+                background: #ff3b30;
+                color: white;
+                border-radius: 50%;
+                width: 18px;
+                height: 18px;
+                font-size: 11px;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                font-weight: 600;
+            "></span>
+        </button>
+        <button class="icon-btn" onclick="openSettingsPanel()" title="Settings">
+    <i class='bx bx-cog'></i>
+</button>
+    </div>
+    <!-- Futuristic AI Assistant Button -->
+<button id="ai-assistant-btn" onclick="toggleAIAssistant()" style="
+    position: fixed;
+    bottom: 28px; 
+    right: 33px;
+    width: 65px; 
+    height: 65px; 
+    border-radius: var(--radius-full);
+    background: var(--bg-primary);
+    border: 1px solid var(--border-primary);
+    color: var(--text-primary);
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    transition: var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
+    <i class='bx bx-message-square-detail'></i>
+</button>
+
+<div id="ai-assistant-panel" style="
+    position: fixed;
+    bottom: 110px; 
+    right: 33px;
+    width: 365px;
+    height: 456px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+    z-index: 999;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: slideUpFade var(--transition-slow) ease-out;
+">
+    <div style="
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--border-secondary);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-primary);
+    ">
+        <div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-primary);">Neural Assistant</div>
+            <div style="font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">System Interface</div>
+        </div>
+        <button onclick="toggleAIAssistant()" style="
+            background: var(--bg-tertiary); 
+            border: none; 
+            color: var(--text-secondary); 
+            width: 28px; 
+            height: 28px; 
+            border-radius: var(--radius-sm); 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        ">×</button>
+    </div>
+
+    <div id="ai-chat-messages" class="no-scrollbar" style="flex: 1; overflow-y: auto; padding: 20px; background: var(--bg-primary);">
+        <div style="font-size: 14px; line-height: 1.5; color: var(--text-primary);">
+            <div style="margin-bottom: 15px;"><b>Hello. How can I assist you?</b></div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="border: 1px solid var(--border-secondary); border-radius: var(--radius-lg); padding: 12px; font-size: 12px; color: var(--text-secondary); background: var(--bg-secondary);">📋 Manage Tasks</div>
+                <div style="border: 1px solid var(--border-secondary); border-radius: var(--radius-lg); padding: 12px; font-size: 12px; color: var(--text-secondary); background: var(--bg-secondary);">📚 Subjects</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="padding: 20px; background: var(--bg-tertiary); border-top: 1px solid var(--border-secondary);">
+        <div style="font-size: 11px; color: var(--text-light); margin-bottom: 12px; padding-left: 4px;">
+            <span style="color: var(--color-accent); font-weight: 600;">Try:</span> "List my tasks for tomorrow"
+        </div>
+
+        <div style="
+            display: flex; 
+            gap: 10px; 
+            align-items: center; 
+            background: var(--input-bg); 
+            border: 1px solid var(--input-border); 
+            border-radius: var(--radius-lg); 
+            padding: 4px;
+            transition: var(--transition-fast);
+        " id="ai-input-wrap">
+            <input 
+                type="text" 
+                id="ai-input" 
+                placeholder="Message assistant..." 
+                onfocus="document.getElementById('ai-input-wrap').style.borderColor='var(--border-focus)'"
+                onblur="document.getElementById('ai-input-wrap').style.borderColor='var(--input-border)'"
+                style="
+                    flex: 1; 
+                    padding: 10px 14px; 
+                    background: transparent; 
+                    border: none; 
+                    color: var(--text-primary); 
+                    font-size: 14px; 
+                    outline: none;
+                "
+            >
+            <button onclick="sendAIResearchMessage()" style="
+                width: 40px; 
+                height: 40px; 
+                border-radius: var(--radius-md); 
+                background: var(--color-primary); 
+                border: none; 
+                color: var(--text-inverted); 
+                cursor: pointer; 
+                display: flex; 
+                align-items: center; 
+                justify-content: center; 
+                font-size: 18px;
+                transition: var(--transition-fast);
+            " onmouseover="this.style.background='var(--color-primary-hover)'" 
+               onmouseout="this.style.background='var(--color-primary)'">
+                <i class='bx bx-up-arrow-alt'></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Clean UI Support */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#ai-assistant-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--border-focus);
+}
+</style>
+</div>
+
+<!-- Add search results dropdown (if not already there) -->
+<div id="search-results" style="
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 500px;
+    max-height: 600px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    display: none;
+    overflow-y: auto;
+    z-index: 1000;
+"></div>
+
+<!-- Notification Panel -->
+<div id="notification-panel" class="side-panel" style="
+    position: fixed;
+    top: 0;
+    right: -110vw;
+    width: min(450px, 100vw);
+    height: 100vh;
+    background: var(--bg-primary);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+    z-index: 2000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+">
+    <div style="
+        padding: 24px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    ">
+        <h2 style="font-size: 20px; font-weight: 600; margin: 0;">Today's Overview</h2>
+        <button onclick="closeNotificationPanel()" style="
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 4px 8px;
+        ">×</button>
+    </div>
+    
+    <div id="notification-content" style="
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+    ">
+        <div style="text-align: center; padding: 40px 20px; color: var(--text-primary);">
+            <i class='bx bx-loader-alt' style="font-size: 48px; animation: spin 1s linear infinite;"></i>
+            <p style="margin-top: 16px;">Loading...</p>
+        </div>
+    </div>
+
+    <div style="
+        padding: 16px 24px;
+        border-top: 1px solid #f0f0f0;
+        background: var(--bg-primary);
+    ">
+        <button onclick="sendEmailNotification()" style="
+            width: 100%;
+            padding: 12px;
+            background: var(--color-primary);
+            color: var(--text-inverted);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        ">
+            <i class='bx bx-envelope'></i>
+            Email Me This Summary
+        </button>
+    </div>
+</div>
+
+<!-- Notification Panel Overlay -->
+<div id="notification-overlay" onclick="closeNotificationPanel()" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 1999;
+"></div>
+
+ <style>
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+ </style>
+
+ </div>
+ <!-- Settings Side Panel - Add to dashboard.html -->
+<!-- Place this AFTER the notification panel -->
+
+<!-- Settings Panel -->
+<div id="settings-panel" class="side-panel" style="
+    position: fixed;
+    top: 0;
+    right: -110vw;
+    width: min(500px, 100vw);
+    height: 100vh;
+    background: var(--bg-primary);
+    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+    z-index: 2000;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+">
+    <!-- Header -->
+    <div style="
+        padding: 24px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background: var(--bg-primary);
+        z-index: 10;
+    ">
+        <h2 style="font-size: 20px; font-weight: 600; margin: 0;">Settings</h2>
+        <button onclick="closeSettingsPanel()" style="
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: 4px 8px;
+        ">×</button>
+    </div>
+    
+    <!-- Settings Content -->
+    <div style="flex: 1; padding: 24px;">
+        
+        <!-- Account Section -->
+        <div style="margin-bottom: 32px;">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 16px;
+            ">
+                <i class='bx bx-user' style="font-size: 20px; color: #667eea;"></i>
+                <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Account</h3>
+            </div>
+            <div style="
+                background:var(--bg-primary);
+                padding: 16px;
+                border-radius: 12px;
+            ">
+                <div style="font-size: 13px; color: var(--text-primary); margin-bottom: 4px;">Email Address</div>
+                <div style="font-size: 15px; font-weight: 500;" id="user-email-display">Loading...</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 32px;">
+            <!-- <div style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 16px;
+            ">
+                <i class='bx bx-bell' style="font-size: 20px; color: #667eea;"></i>
+                <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Notifications</h3>
+            </div> -->
+            
+            <!-- Push Notifications Toggle
+            <div style="
+                background: var(--bg-primary);
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            ">
+                <div>
+                    <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Push Notifications</div>
+                    <div style="font-size: 12px; color: var(--text-primary);">Get notified about tasks and deadlines</div>
+                </div>
+                <label class="settings-toggle-switch">
+                    <input type="checkbox" id="push-notifications-toggle" checked onchange="togglePushNotifications(this.checked)">
+                    <span class="settings-toggle-slider"></span>
+                </label>
+            </div> -->
+
+            <!-- Email Notifications Toggle -->
+            <div style="
+                background: var(--bg-primary);
+                padding: 16px;
+                border-radius: 12px;
+                margin-bottom: 12px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            ">
+                <div>
+                    <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Email Notifications</div>
+                    <div style="font-size: 12px; color: #888;">Daily summary sent by server (works when app is closed)</div>
+                </div>
+                <label class="settings-toggle-switch">
+                    <input type="checkbox" id="email-notifications-toggle" onchange="toggleEmailNotifications(this.checked)">
+                    <span class="settings-toggle-slider"></span>
+                </label>
+            </div>
+
+            <!-- Summary Time -->
+            <div style="
+                background:var(--bg-primary);
+                padding: 16px;
+                border-radius: 12px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            ">
+                <div>
+                    <div style="font-size: 14px; font-weight: 500; margin-bottom: 4px;">Daily Summary Time</div>
+                    <div style="font-size: 12px; color: var(--text-primary);">When to receive your email</div>
+                </div>
+                <select id="summary-time-select" onchange="updateSummaryTime(this.value)" style="
+                    padding: 8px 12px;
+                    border: 2px solid #e0e0e0;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    color: var(--text-primary);
+                    font-weight: 500;
+                    background: var(--bg-primary);
+                    cursor: pointer;
+                ">
+                    <option value="06:00">6:00 AM</option>
+                    <option value="08:00">8:00 AM</option>
+                    <option value="09:00">9:00 AM</option>
+                    <option value="18:00">6:00 PM</option>
+                    <option value="00:40">12:40 AM</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Appearance Section -->
+        <div style="margin-bottom: 32px;">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 16px;
+            ">
+                <i class='bx bx-palette' style="font-size: 20px; color: #667eea;"></i>
+                <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Appearance</h3>
+            </div>
+            
+            <div style="
+                background: var(--bg-primary);
+                padding: 16px;
+                border-radius: 12px;
+            ">
+                <div style="font-size: 14px; font-weight: 500; margin-bottom: 12px;">Theme</div>
+                <div style="display: flex; gap: 12px;">
+                    <button onclick="setTheme('light')" id="light-theme-btn" class="theme-select-btn active" style="
+                        flex: 1;
+                        padding: 12px;
+                        border: 2px solid #667eea;
+                        border-radius: 10px;
+                        background: #667eea;
+                        color: var(--text-primary);
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-weight: 500;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                    ">
+                        <i class='bx bx-sun' style="font-size: 18px;"></i>
+                        Light
+                    </button>
+                    <button onclick="setTheme('dark')" id="dark-theme-btn" class="theme-select-btn" style="
+                        flex: 1;
+                        padding: 12px;
+                        border: 2px solid #e0e0e0;
+                        border-radius: 10px;
+                        background: var(--bg-primary);
+                        color: var(--text-primary);
+                        cursor: pointer;
+                        font-size: 14px;
+                        font-weight: 500;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 8px;
+                    ">
+                        <i class='bx bx-moon' style="font-size: 18px;"></i>
+                        Dark
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions Section -->
+        <div style="margin-bottom: 32px;">
+            <div style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 16px;
+            ">
+                <i class='bx bx-cog' style="font-size: 20px; color: #667eea;"></i>
+                <h3 style="font-size: 16px; font-weight: 600; margin: 0;">Actions</h3>
+            </div>
+            
+            <!-- Test Email Button -->
+            <!-- <button onclick="sendTestEmail()" style="
+                width: 100%;
+                padding: 14px;
+                background: #f0f0f0;
+                border: none;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                margin-bottom: 12px;
+            ">
+                <i class='bx bx-mail-send'></i>
+                Send Test Email
+            </button> -->
+
+            <!-- Logout Button -->
+            <button onclick="handleSettingsLogout()" style="
+                width: 100%;
+                padding: 14px;
+                background: #fee;
+                color: #d32f2f;
+                border: none;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 500;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            ">
+                <i class='bx bx-log-out'></i>
+                Logout
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div style="
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 13px;
+            border-top: 1px solid #f0f0f0;
+        ">
+            Ennovyx Study Space • Version 1.0.0
+        </div>
+    </div>
+</div>
+
+<!-- Settings Panel Overlay -->
+<div id="settings-overlay" onclick="closeSettingsPanel()" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: none;
+    z-index: 1999;
+"></div>
+
+<!-- Add Toggle Switch Styles -->
+<style>
+.settings-toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.settings-toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.settings-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ddd;
+    transition: 0.3s;
+    border-radius: 28px;
+}
+
+.settings-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+.settings-toggle-switch input:checked + .settings-toggle-slider {
+    background-color: #667eea;
+}
+
+.settings-toggle-switch input:checked + .settings-toggle-slider:before {
+    transform: translateX(24px);
+}
+
+/* Theme button active state */
+.theme-select-btn.active {
+    border-color: #667eea !important;
+    background: #667eea !important;
+    color: white !important;
+}
+
+.theme-select-btn:not(.active):hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+/* Settings Toast Notification */
+.settings-toast {
+    position: fixed;
+    top: 80px;
+    right: -400px;
+    background: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    font-size: 14px;
+    font-weight: 500;
+    transition: right 0.3s ease;
+    z-index: 3000;
+}
+
+.settings-toast.show {
+    right: 20px;
+}
+
+.settings-toast.success {
+    border-left: 4px solid #2e7d32;
+    color: #2e7d32;
+}
+
+.settings-toast.error {
+    border-left: 4px solid #d32f2f;
+    color: #d32f2f;
+}
+
+.settings-toast.info {
+    border-left: 4px solid #1a73e8;
+    color: #1a73e8;
+}
+</style>
+
+  <div class="content-wrapper">
+
+    <!-- HOME -->
+    <section id="home" class="section active">
+
+    <!-- Greeting -->
+    <div class="greeting-card">
+      <div class="greeting-title" id="greetingText">Good Afternoon</div>
+      <div class="greeting-sub">
+        You have <span id="taskCount">X</span> tasks due today and <span id="eventCount">X</span> events scheduled.
+      </div>
+      <div class="greeting-actions">
+        <button class="btn">Tasks</button>
+        <button class="btn secondary">Documents</button>
+      </div>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="section-title">Quick Access</div>
+    <div class="cards">
+      <div class="card" data-target="tasks">
+        <div class="icon tasks"><i class='bx bx-check-square'></i></div>
+        <div class="card-title">Tasks</div>
+        <div class="card-sub"><span class="count">X</span> tasks</div>
+      </div>
+
+     <div class="card" data-target="calander">
+        <div class="icon calendar"><i class='bx bx-calendar'></i></div>
+        <div class="card-title">Calender</div>
+        <div class="card-sub"><span class="count">X</span> Events</div>
+      </div>
+
+      <div class="card" data-target="subjects">
+        <div class="icon subjects"><i class='bx bx-book'></i></div>
+        <div class="card-title">Subjects</div>
+        <div class="card-sub"><span class="count">X</span> Subjects</div>
+      </div>
+
+      <div class="card" data-target="expenses">
+        <div class="icon expenses"><i class='bx bx-wallet'></i></div>
+        <div class="card-title">Expenses</div>
+        <div class="card-sub"><span class="count">X</span> Expenses</div>
+      </div>
+    </div>
+    </section>
+
+    <!-- UNIVERSITY TAB -->
+<section id="university" class="section">
+  <div class="eu-page">
+    <div class="eu-page-header">
+      <div class="eu-page-brand">
+        <img id="euDashLogo" class="eu-dash-logo"
+          src="/dashboard/images/eu-logo-for-dark-theme.png"
+          alt="EU">
+      </div>
+    </div>
+    <div class="eu-courses-grid" id="euCoursesGrid">
+      <!-- Courses or empty state loaded by JS -->
+      <div class="eu-loading"><div class="eu-spinner"></div></div>
+    </div>
+  </div>
+</section>
+
+    <!-- TASKS -->
+<section id="tasks" class="section">
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>Tasks</h1>
+                <p class="stats"><span id="completedCount">0</span> of <span id="totalCount">0</span> tasks completed</p>
+            </div>
+            <button class="add-task-btn" onclick="toggleAddForm()">+ Add Task</button>
+        </div>
+
+        <div class="add-task-form" id="addTaskForm">
+            <div class="form-group">
+                <input type="text" class="task-input" id="taskTitle" placeholder="What needs to be done?">
+            </div>
+            <div class="form-row">
+                <div class="priority-group">
+                    <label>Priority:</label>
+                    <div class="priority-btns">
+                        <button class="priority-btn" data-priority="low">Low</button>
+                        <button class="priority-btn active" data-priority="medium">Medium</button>
+                        <button class="priority-btn" data-priority="high">High</button>
+                    </div>
+                </div>
+                <div class="date-group">
+                    <input type="date" class="date-input" id="taskDate">
+                </div>
+                <!-- UPDATED: Subject Selection Dropdown -->
+                <div class="category-group">
+                    <label>Subject:</label>
+                    <select class="category-select" id="taskCategory">
+                        <option value="">No Subject</option>
+                        <!-- Subjects will be populated dynamically -->
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="cancel-btn" onclick="toggleAddForm()">Cancel</button>
+                <button class="submit-btn" onclick="addTask()">Add Task</button>
+            </div>
+        </div>
+
+        <!-- UPDATED: Filter buttons will include subjects -->
+        <div class="filters" id="taskFilters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="no-subject">No Subject</button>
+            <!-- Subject filters will be added dynamically -->
+        </div>
+
+        <div class="tasks-list" id="tasksList">
+            <!-- Tasks will be rendered here -->
+        </div>
+    </div>
+</section>
+    <!-- SUBJECTS -->
+<section id="subjects" class="section">
+<div class="sub-flex">
+    <aside id="st-sidebar-root">
+        <div class="st-nav-header">Library</div>
+        <div id="st-subject-container"></div>
+        <button class="st-btn-new-sub" onclick="st_openModal('SUB')">+ Subject</button>
+    </aside>
+
+    <main id="st-main-canvas">
+        <div style="margin: auto; text-align: center; color: var(--st-text-light);">
+            <h2>Select a Subject</h2>
+            <p>Your notes and tasks are waiting.</p>
+        </div>
+
+
+</main>
+
+    <div class="st-modal-mask" id="st-modal-wrap">
+        <div class="st-modal-container" id="st-modal-body"></div>
+    </div>
+
+    <div id="st-full-viewer" style="margin-top: 80px; height: 600px;">
+        <div style="padding: 15px; border-bottom: 1px solid var(--st-border); display: flex; justify-content: space-between; align-items: center;">
+            <b id="st-view-label">Preview</b>
+            <button class="st-btn st-btn-gray" onclick="st_closeViewer()">Close</button>
+        </div>
+        <div id="st-view-canvas" style="flex:1; display:flex; justify-content:center; align-items:center; overflow:auto; padding:20px; height: 1000px;"></div>
+    </div>
+</div>
+</section>
+
+    <!-- CALENDAR -->
+<section id="calendar" class="section">
+<div class="calx-app">
+  <div class="calx-header">
+    <button class="calx-btn" id="calxPrev">‹</button>
+    <div class="calx-title" id="calxTitle"></div>
+    <button class="calx-btn" id="calxNext">›</button>
+  </div>
+
+  <div class="calx-weekdays">
+    <span>Sun</span><span>Mon</span><span>Tue</span>
+    <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+  </div>
+
+  <div class="calx-days" id="calxDays"></div>
+</div>
+
+<!-- MONTH EVENTS LIST -->
+<div class="calx-list-wrap">
+  <div class="calx-list-header">
+    <span class="calx-list-title" id="calxListTitle">Events this month</span>
+    <button class="calx-add-btn" onclick="document.getElementById('calxSidebar').classList.add('open'); document.getElementById('calxDateInput').value = new Date().toISOString().split('T')[0];">
+      + Add Event
+    </button>
+  </div>
+  <div id="calxEventList" class="calx-event-list">
+    <div class="calx-list-empty">No events or tasks this month</div>
+  </div>
+</div>
+
+<!-- EVENT SIDEBAR -->
+<div class="calx-sidebar" id="calxSidebar">
+  <div class="calx-sidebar-header">
+    <h3>Add Event</h3>
+    <button id="calxClose">×</button>
+  </div>
+
+  <form id="calxForm" class="calx-form">
+    <input id="calxTitleInput" type="text" placeholder="Event title" required />
+    <input id="calxDateInput" type="date" required />
+    <input id="calxTimeInput" type="time" required />
+    <textarea placeholder="Description (optional)"></textarea>
+    <button type="submit">Save Event</button>
+  </form>
+</div>
+</section>
+
+<section id="ai" class="section">
+    <div id="docs-library-view">
+        <div class="library-header-container">
+            <div class="app-logo-text">
+                <i class="fas fa-file-alt logo-icon"></i>
+                Docs
+            </div>
+            <div class="search-container">
+                <i class="fas fa-search search-icon-wrapper"></i>
+                <input type="text" id="library-search-input" class="search-input-field" placeholder="Search documents...">
+            </div>
+            <button class="import-doc-button" onclick="openImportModal()" title="Import .docx or Google Doc">
+                <i class="fas fa-file-import"></i>
+                Import
+            </button>
+            <button class="create-new-document-button" onclick="createNewDocument()">
+                <i class="fas fa-plus"></i>
+                New Document
+            </button>
+        </div>
+        <div class="documents-grid-container" id="documents-grid-display"></div>
+    </div>
+
+    <!-- UPDATED Editor View with Pagination Support -->
+    <div id="document-editor-view">
+        <div class="editor-top-header">
+            <button class="back-to-library-button" onclick="returnToLibrary()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <input type="text" class="document-name-input" id="current-document-name-input" placeholder="Untitled Document">
+        </div>
+        
+        <div class="editor-toolbar-container">
+            <button class="toolbar-action-button" onclick="executeCommand('undo')" title="Undo">
+                <i class="fas fa-undo"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('redo')" title="Redo">
+                <i class="fas fa-redo"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="printDocument()" title="Print">
+                <i class="fas fa-print"></i>
+            </button>
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <select class="toolbar-dropdown-select" id="font-family-selector" onchange="executeCommand('fontName', this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Calibri">Calibri</option>
+                <option value="Cambria">Cambria</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Impact">Impact</option>
+                <option value="Lucida Console">Lucida Console</option>
+                <option value="Palatino">Palatino</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+                <option value="Verdana">Verdana</option>
+            </select>
+            
+            <select class="toolbar-dropdown-select" id="font-size-selector" onchange="setFontSize(this.value)">
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11" selected>11</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="22">22</option>
+                <option value="24">24</option>
+                <option value="26">26</option>
+                <option value="28">28</option>
+                <option value="36">36</option>
+                <option value="48">48</option>
+                <option value="72">72</option>
+            </select>
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <button class="toolbar-action-button" id="bold-format-button" onclick="toggleFormatting('bold')" title="Bold">
+                <i class="fas fa-bold"></i>
+            </button>
+            <button class="toolbar-action-button" id="italic-format-button" onclick="toggleFormatting('italic')" title="Italic">
+                <i class="fas fa-italic"></i>
+            </button>
+            <button class="toolbar-action-button" id="underline-format-button" onclick="toggleFormatting('underline')" title="Underline">
+                <i class="fas fa-underline"></i>
+            </button>
+            <button class="toolbar-action-button" id="strikethrough-format-button" onclick="toggleFormatting('strikeThrough')" title="Strikethrough">
+                <i class="fas fa-strikethrough"></i>
+            </button>
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <input type="color" class="text-color-picker" id="text-color-input" onchange="executeCommand('foreColor', this.value)" title="Text Color">
+            <input type="color" class="background-color-picker" id="background-color-input" onchange="executeCommand('backColor', this.value)" title="Highlight Color">
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <button class="toolbar-action-button" onclick="executeCommand('justifyLeft')" title="Align Left">
+                <i class="fas fa-align-left"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('justifyCenter')" title="Align Center">
+                <i class="fas fa-align-center"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('justifyRight')" title="Align Right">
+                <i class="fas fa-align-right"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('justifyFull')" title="Justify">
+                <i class="fas fa-align-justify"></i>
+            </button>
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <button class="toolbar-action-button" onclick="executeCommand('insertOrderedList')" title="Numbered List">
+                <i class="fas fa-list-ol"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('insertUnorderedList')" title="Bulleted List">
+                <i class="fas fa-list-ul"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('indent')" title="Increase Indent">
+                <i class="fas fa-indent"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="executeCommand('outdent')" title="Decrease Indent">
+                <i class="fas fa-outdent"></i>
+            </button>
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <button class="toolbar-action-button" onclick="document.getElementById('image-file-input').click()" title="Insert Image">
+                <i class="fas fa-image"></i>
+            </button>
+            <input type="file" id="image-file-input" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+            
+            <button class="toolbar-action-button" onclick="toggleLinkPanel()" title="Insert Link">
+                <i class="fas fa-link"></i>
+            </button>
+            <button class="toolbar-action-button" onclick="toggleTablePanel()" title="Insert Table">
+                <i class="fas fa-table"></i>
+            </button>
+            
+            <div class="toolbar-divider-line"></div>
+            
+            <button class="toolbar-action-button" onclick="executeCommand('removeFormat')" title="Clear Formatting">
+                <i class="fas fa-remove-format"></i>
+            </button>
+
+            <div class="toolbar-divider-line"></div>
+
+            <!-- AI Research Toggle Button -->
+            <button class="toolbar-action-button brains-toggle-btn" onclick="toggleAIPanel()" id="ai-toggle-btn" title="Open Ennovyx Brains">
+                <span class="btn-pulse"></span>e·brains
+            </button>
+        </div>
+        
+        <!-- SPLIT SCREEN: Doc on left, AI on right -->
+        <div class="editor-split-wrapper">
+
+            <!-- LEFT: Document editor -->
+            <div class="editor-doc-side">
+                <div class="document-pages-container" id="document-pages-container">
+                    <div class="document-page-wrapper" data-page="1">
+                        <div class="page-content" contenteditable="true" id="editor-content-editable"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: E·BRAINS Panel -->
+            <div class="editor-ai-side collapsed" id="ai-research-panel">
+
+                <!-- Header -->
+                <div class="brains-header">
+                    <div class="brains-title-group">
+                        <div class="brains-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="4" fill="#6366f1"/>
+                                <circle cx="12" cy="12" r="8" stroke="#a5b4fc" stroke-width="1" stroke-dasharray="3 2"/>
+                                <circle cx="12" cy="3" r="1.5" fill="#6366f1"/>
+                                <circle cx="12" cy="21" r="1.5" fill="#6366f1"/>
+                                <circle cx="3" cy="12" r="1.5" fill="#a855f7"/>
+                                <circle cx="21" cy="12" r="1.5" fill="#a855f7"/>
+                            </svg>
+                            <span><span class="e">e·</span>brains</span>
+                        </div>
+                        <div class="brains-live">
+                            <span class="brains-live-dot"></span>
+                            Ennovyx AI · ready
+                        </div>
+                    </div>
+                    <div class="brains-header-right">
+                        <span class="brains-quota" id="brains-usage-counter">15 left</span>
+                        <button class="brains-close-btn" onclick="toggleAIPanel()" title="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Limit notice -->
+                <div class="brains-notice" id="brains-limit-banner"></div>
+
+                <!-- Messages -->
+                <div class="brains-messages" id="ai-messages-area">
+                    <div class="brains-welcome" id="brains-welcome-screen">
+                        <div class="brains-logo-mark">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="4" fill="#6366f1"/>
+                                <circle cx="12" cy="12" r="8" stroke="#a5b4fc" stroke-width="1" stroke-dasharray="3 2"/>
+                                <circle cx="12" cy="3" r="1.5" fill="#6366f1"/>
+                                <circle cx="12" cy="21" r="1.5" fill="#6366f1"/>
+                                <circle cx="3" cy="12" r="1.5" fill="#a855f7"/>
+                                <circle cx="21" cy="12" r="1.5" fill="#a855f7"/>
+                            </svg>
+                        </div>
+                        <div class="brains-welcome-h"><span>e·</span>brains</div>
+                        <div class="brains-welcome-p">Ask me anything — research, explanations, summaries, writing help. I'm here.</div>
+                        <div class="brains-starter-grid">
+                            <button class="brains-starter" onclick="sendQuickPrompt('Summarize')">📝 Summarize a topic</button>
+                            <button class="brains-starter" onclick="sendQuickPrompt('Explain simply:')">💡 Explain simply</button>
+                            <button class="brains-starter" onclick="sendQuickPrompt('Key points on')">🎯 Key points</button>
+                            <button class="brains-starter" onclick="sendQuickPrompt('Write a paragraph about')">✍️ Write for me</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prompt pills -->
+                <div class="brains-pills">
+                    <button class="brains-pill" onclick="sendQuickPrompt('Summarize')">Summarize</button>
+                    <button class="brains-pill" onclick="sendQuickPrompt('Explain simply:')">Explain</button>
+                    <button class="brains-pill" onclick="sendQuickPrompt('Key points on')">Key points</button>
+                    <button class="brains-pill" onclick="sendQuickPrompt('Write a paragraph about')">Write for me</button>
+                    <button class="brains-pill" onclick="sendQuickPrompt('Define:')">Define</button>
+                    <button class="brains-pill" onclick="sendQuickPrompt('Pros and cons of')">Pros & cons</button>
+                    <button class="brains-pill" onclick="sendQuickPrompt('Give examples of')">Examples</button>
+                </div>
+
+                <!-- Input -->
+                <div class="brains-input-area">
+                    <!-- Attached doc chip (shown when file attached) -->
+                    <div id="brains-attached-chip" style="display:none;" class="brains-attached-chip">
+                        <i class="fas fa-file-alt" style="font-size:11px;"></i>
+                        <span id="brains-attached-name">document.txt</span>
+                        <button onclick="removeAttachedDoc()" title="Remove">×</button>
+                    </div>
+                    <div class="brains-input-box">
+                        <textarea
+                            class="brains-textarea"
+                            id="ai-query-input"
+                            placeholder="Ask anything..."
+                            rows="1"
+                            onkeydown="handleAIInputKey(event)"
+                            oninput="autoResizeAIInput(this)"
+                        ></textarea>
+                        <div class="brains-input-toolbar">
+                            <button class="brains-attach-btn" onclick="triggerBrainsAttach()" title="Attach document">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <input type="file" id="brains-file-input"
+                                accept=".txt,.docx,.doc,.html,.htm,.pdf"
+                                style="display:none" onchange="handleBrainsAttach(event)">
+                            <button class="brains-send-btn" id="ai-send-btn" onclick="sendAIResearchMessage()">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="brains-hint">Enter to send · Shift+Enter for new line</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Link Insert Panel -->
+    <div class="insert-panel-overlay" id="link-insert-panel">
+        <div class="insert-panel-content">
+            <div class="panel-title">Insert Link</div>
+            <div class="panel-input-group">
+                <label class="panel-input-label">Text to display</label>
+                <input type="text" class="panel-text-input" id="link-text-input" placeholder="Link text">
+            </div>
+            <div class="panel-input-group">
+                <label class="panel-input-label">URL</label>
+                <input type="text" class="panel-text-input" id="link-url-input" placeholder="https://example.com">
+            </div>
+            <div class="panel-actions">
+                <button class="panel-button panel-button-cancel" onclick="closeLinkPanel()">Cancel</button>
+                <button class="panel-button panel-button-primary" onclick="insertLink()">Insert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Insert Panel -->
+    <div class="insert-panel-overlay" id="table-insert-panel">
+        <div class="insert-panel-content">
+            <div class="panel-title">Insert Table</div>
+            <div class="table-size-label" id="table-size-display">Select table size (1 x 1)</div>
+            <div class="table-size-grid" id="table-size-grid"></div>
+            <div class="panel-actions">
+                <button class="panel-button panel-button-cancel" onclick="closeTablePanel()">Cancel</button>
+                <button class="panel-button panel-button-primary" id="insert-table-button" onclick="insertTable()">Insert</button>
+            </div>
+        </div>
+    </div>
+</section>
+    <section id="discipline" class="section">
+    <div class="xz9_primary_container_wrapper">
+        <div class="qw7_metric_hero_display_zone">
+            <div class="rt3_numeric_score_visualization" id="ds92_score_display_value">0</div>
+            <div class="pl8_descriptor_text_label">Discipline Score</div>
+            <div class="km2_motivational_feedback_string" id="fb38_dynamic_message_content">Start building your discipline</div>
+        </div>
+
+        <nav class="vb4_horizontal_navigation_bar">
+            <button class="jf5_nav_interactive_button zx1_state_is_active" data-view="today">Today</button>
+            <button class="jf5_nav_interactive_button" data-view="week">Week</button>
+            <button class="jf5_nav_interactive_button" data-view="month">Month</button>
+        </nav>
+
+        <div id="vc47_today_view_panel" class="mg8_content_view_container zx1_state_is_active">
+            <div class="nh6_temporal_date_indicator" id="tj19_current_date_string"></div>
+            
+            <div class="df9_repeatable_tasks_list_wrapper" id="mw73_habits_rendering_zone"></div>
+            
+            <button class="nr8_create_new_habit_button" id="np54_add_habit_trigger">Add habit</button>
+        </div>
+
+        <div id="kl28_week_view_panel" class="mg8_content_view_container">
+            <div class="hm4_statistics_grid_layout">
+                <div class="yj9_single_stat_display_card">
+                    <div class="ik7_large_numeric_stat_value" id="rx65_weekly_completion_count">0</div>
+                    <div class="gp3_stat_description_label">Completed</div>
+                </div>
+                <div class="yj9_single_stat_display_card">
+                    <div class="ik7_large_numeric_stat_value" id="zy41_weekly_consistency_rate">0%</div>
+                    <div class="gp3_stat_description_label">Consistency</div>
+                </div>
+                <div class="yj9_single_stat_display_card">
+                    <div class="ik7_large_numeric_stat_value" id="bh82_best_performing_day">—</div>
+                    <div class="gp3_stat_description_label">Best Day</div>
+                </div>
+            </div>
+
+            <div class="tl5_content_section_block">
+                <div class="ao2_section_heading_title">7-Day Overview</div>
+                <div class="cn6_seven_day_calendar_grid" id="pw36_week_calendar_grid"></div>
+            </div>
+
+            <div class="tl5_content_section_block">
+                <div class="ao2_section_heading_title">Insights</div>
+                <div class="rw5_insights_messages_container" id="qt59_weekly_insights_area"></div>
+            </div>
+        </div>
+
+        <div id="nv15_month_view_panel" class="mg8_content_view_container">
+            <div class="hm4_statistics_grid_layout">
+                <div class="yj9_single_stat_display_card">
+                    <div class="ik7_large_numeric_stat_value" id="uf23_monthly_total_habits">0</div>
+                    <div class="gp3_stat_description_label">Total</div>
+                </div>
+                <div class="yj9_single_stat_display_card">
+                    <div class="ik7_large_numeric_stat_value" id="sg74_current_streak_days">0</div>
+                    <div class="gp3_stat_description_label">Streak</div>
+                </div>
+                <div class="yj9_single_stat_display_card">
+                    <div class="ik7_large_numeric_stat_value" id="dl96_monthly_success_percentage">0%</div>
+                    <div class="gp3_stat_description_label">Success</div>
+                </div>
+            </div>
+
+            <div class="tl5_content_section_block">
+                <div class="ao2_section_heading_title">Progress</div>
+                <div class="rw5_insights_messages_container" id="hk58_monthly_insights_area"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="oh9_overlay_modal_backdrop" id="zw31_modal_overlay_container">
+        <div class="sl7_modal_content_card_box">
+            <div class="wi2_modal_header_title_text">Add habit</div>
+            
+            <div class="nq4_form_input_field_group">
+                <label class="ez8_input_label_descriptor">Name</label>
+                <input class="gt1_text_input_field_element" id="oj67_habit_name_input" type="text" placeholder="Study at least 1 session">
+            </div>
+
+            <div class="nq4_form_input_field_group">
+                <label class="ez8_input_label_descriptor">Category</label>
+                <select class="yl5_dropdown_select_element" id="mb45_category_selector">
+                    <option value="study">Study consistency</option>
+                    <option value="focus">Focus & attention</option>
+                    <option value="health">Health & energy</option>
+                    <option value="reading">Reading & skills</option>
+                    <option value="sleep">Sleep routine</option>
+                    <option value="growth">Personal growth</option>
+                </select>
+            </div>
+
+            <div class="nq4_form_input_field_group">
+                <label class="ez8_input_label_descriptor">Frequency</label>
+                <select class="yl5_dropdown_select_element" id="yr83_frequency_selector">
+                    <option value="daily">Daily</option>
+                    <option value="weekdays">Weekdays only</option>
+                    <option value="weekly">Once a week</option>
+                </select>
+            </div>
+
+            <div class="kd3_action_buttons_row_container">
+                <button class="wp6_generic_clickable_button hx7_secondary_action_button_style" id="ik29_cancel_modal_button">Cancel</button>
+                <button class="wp6_generic_clickable_button qc9_primary_action_button_style" id="sw76_save_habit_button">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="ak4_success_celebration_overlay" id="cv48_celebration_popup">
+        <div class="xm2_celebration_popup_content_box">
+            <div class="zn6_celebration_emoji_icon">✓</div>
+            <div class="pq8_celebration_message_text">Done</div>
+        </div>
+    </div>
+    </section>
+    <!-- EXPENSES -->
+    <section id="expenses" class="section">
+          <div class="container">
+        <header>
+            <h1>Expenses</h1>
+            <button class="budget-edit-btn" onclick="openBudgetModal()">Edit Budget</button>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Spent</div>
+                <div class="stat-value" id="totalSpent">PKR 0.00</div>
+                <div class="stat-subtext">This month</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Budget</div>
+                <div class="stat-value" id="budgetAmount">PKR 0.00</div>
+                <div class="stat-subtext">Monthly limit</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Remaining</div>
+                <div class="stat-value remaining" id="remainingAmount">PKR 0.00</div>
+                <div class="stat-subtext">Under budget</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Budget Used</div>
+                <div class="stat-value" id="budgetPercent">0%</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="expenses-section">
+                <div class="section-header">
+                    <h2 class="section-title">Recent Expenses</h2>
+                    <button class="add-btn" onclick="openExpenseModal()">
+                        <span>+</span> Add Expense
+                    </button>
+                </div>
+                <div class="expense-list" id="expenseList">
+                    <div class="empty-state">No expenses yet. Click "Add Expense" to get started!</div>
+                </div>
+            </div>
+
+            <div class="categories-section">
+                <h2 class="section-title" style="margin-bottom: 20px;">By Category</h2>
+                <div id="categoryList"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Expense Modal -->
+    <div class="modal" id="expenseModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Add Expense</h2>
+            <form id="expenseForm">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-input" id="expenseTitle" placeholder="Enter expense title" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description (Optional)</label>
+                    <input type="text" class="form-input" id="expenseDescription" placeholder="Enter description">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Amount (PKR)</label>
+                    <input type="number" class="form-input" id="expenseAmount" placeholder="0.00" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <div class="category-grid" id="categoryOptions"></div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeExpenseModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Expense</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Budget Modal -->
+    <div class="modal" id="budgetModal">
+        <div class="modal-content">
+            <h2 class="modal-title">Edit Budget</h2>
+            <form id="budgetForm">
+                <div class="form-group">
+                    <label class="form-label">Monthly Budget (PKR)</label>
+                    <input type="number" class="form-input" id="budgetInput" placeholder="0.00" step="0.01" required>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeBudgetModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Budget</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </section>
+
+    <!-- LOGOUT -->
+    <section id="logout" class="section">
+      <div class="section-box">LOGOUT</div>
+    </section>
+
+
+<section id="ai-research-page" class="section">
+  <!-- WELCOME STATE: shown before any messages -->
+  <div class="ebr-welcome-state" id="ai-page-welcome">
+
+    <!-- Ambient top glow (dark mode) -->
+    <div class="ebr-glow"></div>
+
+    <!-- Quota badge top-right -->
+    <div class="ebr-quota-badge">
+      <span class="ebr-quota" id="ai-page-quota-counter">15 left today</span>
+    </div>
+
+    <!-- Center hero -->
+    <div class="ebr-hero">
+      <img src="images/icon-final.png" alt="e·brains" class="ebr-hero-icon">
+      <h1 class="ebr-hero-title">Ennovyx Brains</h1>
+      <p class="ebr-hero-sub">Describe the work that keeps you from what matters&hellip;</p>
+    </div>
+
+    <!-- Big input -->
+    <div class="ebr-center-input-wrap">
+      <div class="ebr-limit-notice" id="ai-page-notice"></div>
+      <div id="ai-page-attached-chip" style="display:none;" class="ebr-chip">
+        <i class="fas fa-file-alt"></i>
+        <span id="ai-page-attached-name">file.txt</span>
+        <button onclick="apRemoveAttached()" title="Remove">×</button>
+      </div>
+      <div class="ebr-big-input" id="ebr-input-focus-box">
+        <textarea
+          id="ai-page-input"
+          class="ebr-big-textarea"
+          placeholder="Ask anything about your studies..."
+          rows="3"
+          onkeydown="apHandleKey(event)"
+          oninput="apResize(this)"
+        ></textarea>
+        <div class="ebr-big-toolbar">
+          <button class="ebr-attach-btn" onclick="document.getElementById('ai-page-file-input').click()" title="Attach">
+            <i class="fas fa-plus"></i>
+          </button>
+          <input type="file" id="ai-page-file-input" accept=".txt,.docx,.doc,.html,.htm" style="display:none" onchange="apHandleAttach(event)">
+          <button class="ebr-submit-btn" id="ai-page-send-btn" onclick="apSend()">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Starter cards (4 columns like SuperAgents) -->
+    <div class="ebr-cards">
+      <button class="ebr-card" onclick="apPageQuickPrompt('Summarize this topic:')">
+        <span class="ebr-card-title">📝 Summarize</span>
+        <span class="ebr-card-sub">Condense any topic</span>
+      </button>
+      <button class="ebr-card" onclick="apPageQuickPrompt('Explain simply:')">
+        <span class="ebr-card-title">💡 Explain</span>
+        <span class="ebr-card-sub">Break it down simply</span>
+      </button>
+      <button class="ebr-card" onclick="apPageQuickPrompt('What are the key points of')">
+        <span class="ebr-card-title">🎯 Key Points</span>
+        <span class="ebr-card-sub">Extract the essentials</span>
+      </button>
+      <button class="ebr-card" onclick="apPageQuickPrompt('Write a paragraph about')">
+        <span class="ebr-card-title">✍️ Write for me</span>
+        <span class="ebr-card-sub">Draft any content</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- CHAT STATE: shown when messages exist -->
+  <div class="ebr-chat-state" id="ebr-chat-state" style="display:none;">
+
+    <!-- Chat topbar -->
+    <div class="ebr-chat-topbar">
+      <div class="ebr-chat-brand">
+        <img src="images/icon-final.png" alt="" class="ebr-chat-icon">
+        <span class="ebr-chat-name">e·<span>brains</span></span>
+      </div>
+      <span class="ebr-quota ebr-chat-quota" id="ai-page-quota-counter-chat">15 left</span>
+    </div>
+
+    <!-- Messages -->
+    <div class="ebr-messages" id="ai-page-messages"></div>
+
+    <!-- Input -->
+    <div class="ebr-chat-input-wrap">
+      <div class="ebr-limit-notice" id="ai-page-notice-chat"></div>
+      <div id="ai-page-attached-chip-chat" style="display:none;" class="ebr-chip">
+        <i class="fas fa-file-alt"></i>
+        <span id="ai-page-attached-name-chat">file.txt</span>
+        <button onclick="apRemoveAttached()" title="Remove">×</button>
+      </div>
+      <div class="ebr-big-input ebr-chat-input-box">
+        <textarea
+          id="ai-page-input-chat"
+          class="ebr-big-textarea"
+          placeholder="Ask anything..."
+          rows="1"
+          onkeydown="apHandleKeyChat(event)"
+          oninput="apResizeChat(this)"
+        ></textarea>
+        <div class="ebr-big-toolbar">
+          <button class="ebr-attach-btn" onclick="document.getElementById('ai-page-file-input-chat').click()">
+            <i class="fas fa-plus"></i>
+          </button>
+          <input type="file" id="ai-page-file-input-chat" accept=".txt,.docx,.doc,.html,.htm" style="display:none" onchange="apHandleAttach(event)">
+          <button class="ebr-submit-btn" id="ai-page-send-btn-chat" onclick="apSend()">
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+  </div>
+
+</main>
+
+</main>
+<!-- Firebase Scripts - ADD THESE FIRST -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="script/firebase.js"></script>
+<script src="script/auth.js"></script>
+<script src="script/dataManager.js"></script>
+<script src="script/settings.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+
+  const sidebar=document.getElementById('sidebar');
+  const collapseBtn=document.getElementById('collapseBtn');
+  const brandToggle=document.getElementById('brandToggle');
+  const buttons=document.querySelectorAll('.nav button,.logout button');
+  const sections=document.querySelectorAll('.section');
+  const pageTitle=document.getElementById('pageTitle');
+
+  collapseBtn.onclick=()=>sidebar.classList.toggle('collapsed');
+  brandToggle.onclick=()=>{if(sidebar.classList.contains('collapsed')) sidebar.classList.remove('collapsed')};
+
+  buttons.forEach(btn=>{
+    btn.onclick=()=>{
+      buttons.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const target=btn.dataset.target;
+      sections.forEach(sec=>sec.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+      pageTitle.textContent=btn.innerText.trim();
+
+      // AI Research tab — toggle main scroll off so section fills properly
+      const mainEl = document.querySelector('.main');
+      if (target === 'ai-research-page') {
+        if (mainEl) mainEl.style.overflow = 'hidden';
+        if (typeof apOnTabOpen === 'function') apOnTabOpen();
+      } else {
+        if (mainEl) mainEl.style.overflow = '';
+      }
+    }
+  });
+</script>
+
+<script src="script/calander.js"></script>
+<script src="script/tasks.js"></script>
+<script src="script/home.js"></script>
+<script src="script/persnalprogress.js"></script>
+<script src="script/subjects.js"></script>
+<script src="script/expenses.js"></script>
+<script src="script/notification.js"></script>
+<script src="script/search.js"></script>
+<script src="script/aiResearch.js"></script>
+<script src="script/aiAssistant.js"></script>
+
+<script src="script/docs.js"></script>
+<script src="script/university.js"></script>
+
+<!-- Firebase Scripts - ADD THESE FIRST -->
+
+
+<!-- Check authentication before loading app -->
+<script>
+// Wait for auth state before initializing app
+firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+        // Not logged in - redirect to signup
+        window.location.href = '/signup/index.html';
+    } else {
+        // User is logged in - safe to load app
+        console.log('User authenticated:', user.email);
+    }
+});
+
+</script>
+
+
+    <!-- Import Document Modal -->
+    <div class="import-modal-overlay" id="import-modal-overlay">
+        <div class="import-modal">
+            <div class="import-modal-title">Import Document</div>
+            <div class="import-modal-sub">Open a Word file (.docx) directly in the editor</div>
+
+            <div class="import-drop-zone" id="import-drop-zone" onclick="document.getElementById('import-file-input').click()">
+                <span class="import-drop-icon">📄</span>
+                <div class="import-drop-title">Drop your file here or click to browse</div>
+                <div class="import-drop-sub">Drag & drop to upload</div>
+                <div class="import-formats">
+                    <span class="import-format-tag">.docx</span>
+                    <span class="import-format-tag">.doc</span>
+                    <span class="import-format-tag">.txt</span>
+                    <span class="import-format-tag">.html</span>
+                </div>
+            </div>
+
+            <input type="file" class="import-file-input" id="import-file-input"
+                accept=".docx,.doc,.txt,.html,.htm"
+                onchange="handleImportFile(event)">
+
+            <div class="import-url-section">
+                <label class="import-url-label">Or paste a Google Docs share link</label>
+                <div class="import-url-row">
+                    <input type="text" class="import-url-input" id="import-gdoc-url"
+                        placeholder="https://docs.google.com/document/d/...">
+                    <button class="import-url-btn" onclick="importGoogleDoc()">Open</button>
+                </div>
+            </div>
+
+            <div class="import-modal-actions">
+                <button class="import-cancel-btn" onclick="closeImportModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+// ── PWA: Service Worker Registration ──────────────────────
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(reg => console.log('[SW] Registered:', reg.scope))
+      .catch(err => console.warn('[SW] Failed:', err));
+  });
+}
+
+// ── PWA: Install Prompt (Android/Desktop) ─────────────────
+let _pwaPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  _pwaPrompt = e;
+  // Show install banner after short delay
+  setTimeout(showInstallBanner, 2500);
+});
+window.addEventListener('appinstalled', () => {
+  hideInstallBanner();
+  _pwaPrompt = null;
+});
+
+
+
+// Handle deep link shortcut tabs (e.g. ?tab=tasks)
+window.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get('tab');
+  if (tab) {
+    const btn = document.querySelector(`.nav button[data-target="${tab}"]`);
+    if (btn) btn.click();
+  }
+});
+</script>
+
+<!-- ── Mobile Bottom Navigation ── -->
+<div class="mob-sheet-overlay" id="mobSheetOverlay" onclick="closeMobSheet()"></div>
+<div class="mob-more-sheet" id="mobMoreSheet">
+  <div class="mob-sheet-handle"></div>
+  <div class="mob-sheet-grid">
+    <button class="mob-sheet-item" data-target="subjects" onclick="mobNavTo('subjects')">
+      <i class='bx bx-book'></i><span>Subjects</span>
+    </button>
+    <button class="mob-sheet-item" data-target="calendar" onclick="mobNavTo('calendar')">
+      <i class='bx bx-calendar'></i><span>Calendar</span>
+    </button>
+    <button class="mob-sheet-item" data-target="ai" onclick="mobNavTo('ai')">
+      <i class='bx bx-file'></i><span>Documents</span>
+    </button>
+    <button class="mob-sheet-item" data-target="discipline" onclick="mobNavTo('discipline')">
+      <i class='bx bx-target-lock'></i><span>Discipline</span>
+    </button>
+    <button class="mob-sheet-item" data-target="expenses" onclick="mobNavTo('expenses')">
+      <i class='bx bx-wallet'></i><span>Expenses</span>
+    </button>
+    <button class="mob-sheet-item" data-target="university" onclick="mobNavTo('university')">
+      <i class='bx bx-book'></i><span>University</span>
+    </button>
+  </div>
+</div>
+
+<nav class="mobile-bottom-nav" id="mobileBottomNav">
+  <button class="mob-nav-btn active" data-target="home" onclick="mobNavTo('home')">
+    <i class='bx bx-home'></i><span>Home</span>
+  </button>
+  <button class="mob-nav-btn" data-target="tasks" onclick="mobNavTo('tasks')">
+    <i class='bx bx-check-square'></i><span>Tasks</span>
+  </button>
+  <button class="mob-nav-btn center-pill" data-target="ai-research-page" onclick="mobNavTo('ai-research-page')">
+    <i class='bx bx-brain'></i><span>AI</span>
+  </button>
+  <button class="mob-nav-btn" data-target="home" onclick="openMobSheet()">
+    <i class='bx bx-grid-alt'></i><span>More</span>
+  </button>
+  <button class="mob-nav-btn" onclick="logout()">
+    <i class='bx bx-log-out'></i><span>Logout</span>
+  </button>
+</nav>
+
+<script>
+function mobNavTo(target) {
+  closeMobSheet();
+  // Reuse existing nav click logic
+  document.querySelectorAll('.nav button[data-target]').forEach(b => {
+    if (b.dataset.target === target) b.click();
+  });
+  // Update bottom nav active state
+  document.querySelectorAll('.mob-nav-btn[data-target]').forEach(b => {
+    b.classList.toggle('active', b.dataset.target === target);
+  });
+  document.querySelectorAll('.mob-sheet-item[data-target]').forEach(b => {
+    b.classList.toggle('active', b.dataset.target === target);
+  });
+}
+function openMobSheet() {
+  document.getElementById('mobMoreSheet').classList.add('open');
+  document.getElementById('mobSheetOverlay').classList.add('open');
+}
+function closeMobSheet() {
+  document.getElementById('mobMoreSheet').classList.remove('open');
+  document.getElementById('mobSheetOverlay').classList.remove('open');
+}
+// Sync desktop nav clicks to mobile nav
+document.querySelectorAll('.nav button[data-target]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.target;
+    document.querySelectorAll('.mob-nav-btn[data-target]').forEach(b =>
+      b.classList.toggle('active', b.dataset.target === t));
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updates - Ennovyx</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+       <link rel="icon" type="image/png" sizes="32x32" href="../images/icon-final.png">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #7c3aed;
+            --dark: #0a0a0a;
+            --gray-50: #fafafa;
+            --gray-200: #e5e5e5;
+            --gray-500: #737373;
+            --gray-600: #525252;
+        }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; color: var(--dark); line-height: 1.6; background: var(--gray-50); }
+        
+        nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.06); padding: 12px 20px; z-index: 1000; border-radius: 60px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 70%; max-width: 1200px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; text-decoration: none; color: var(--dark); }
+        .logo-icon { width: 24px; height: 24px; background: var(--primary); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+        .get-started-btn { background: var(--primary); color: white; padding: 8px 20px; border-radius: 40px; font-weight: 600; font-size: 13px; text-decoration: none; }
+
+        .container { max-width: 900px; margin: 120px auto 60px; padding: 40px; }
+        h1 { font-size: 48px; font-weight: 700; margin-bottom: 16px; background: linear-gradient(97deg, #202020 43%, #8f8f8f 111%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 125%; letter-spacing: -1.68px; text-align: center; }
+        .subtitle { font-size: 18px; color: var(--gray-500); margin-bottom: 60px; text-align: center; }
+
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--gray-200); }
+
+        .update-item { position: relative; margin-bottom: 50px; background: white; padding: 32px; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .update-item::before { content: ''; position: absolute; left: -32px; top: 40px; width: 16px; height: 16px; border-radius: 50%; background: var(--primary); border: 3px solid white; box-shadow: 0 0 0 2px var(--gray-200); }
+
+        .update-badge { display: inline-block; padding: 6px 14px; background: var(--primary); color: white; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        .update-badge.coming-soon { background: #f59e0b; }
+
+        .update-date { font-size: 13px; color: var(--gray-500); margin-bottom: 12px; }
+        .update-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; color: var(--dark); }
+        .update-description { font-size: 15px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px; }
+
+        .feature-list { list-style: none; margin-top: 16px; }
+        .feature-list li { padding: 8px 0; font-size: 14px; color: var(--gray-600); display: flex; align-items: center; gap: 10px; }
+        .feature-list li::before { content: "✓"; color: var(--primary); font-weight: 600; font-size: 16px; }
+
+        .highlight-card { background: linear-gradient(135deg, #d946ef 0%, #ec4899 25%, #f97316 75%, #f59e0b 100%); padding: 40px; border-radius: 24px; text-align: center; color: white; margin: 60px 0; }
+        .highlight-card h2 { font-size: 32px; margin-bottom: 16px; color: white; }
+        .highlight-card p { font-size: 16px; opacity: 0.95; margin-bottom: 24px; }
+        .highlight-card .feature-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+        .preview-item { background: rgba(255,255,255,0.15); padding: 20px; border-radius: 12px; backdrop-filter: blur(10px); }
+        .preview-item i { font-size: 28px; margin-bottom: 8px; }
+        .preview-item h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .preview-item p { font-size: 13px; opacity: 0.9; margin: 0; }
+
+        footer { background: var(--gray-50); padding: 40px; text-align: center; border-top: 1px solid var(--gray-200); color: var(--gray-600); }
+
+        @media (max-width: 768px) {
+            nav { width: 90%; padding: 10px 16px; }
+            .container { margin: 90px 20px 40px; padding: 20px; }
+            h1 { font-size: 32px; }
+            .timeline { padding-left: 30px; }
+            .update-item { padding: 24px 20px; }
+            .highlight-card .feature-preview { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="../images/icon-final.png" alt="" class="logo-icon" style="background-color: #0a0a0a00;">
+                <span>Ennovyx</span>
+            </a>
+            <a href="/" class="get-started-btn">Back to Home</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Product Updates</h1>
+        <p class="subtitle">See what's new and what's coming to Ennovyx</p>
+
+        <div class="highlight-card">
+            <h2>🎉 Coming Soon: AI-Powered Documents</h2>
+            <p>We're building an intelligent document system that will revolutionize how you create and manage academic content</p>
+            <div class="feature-preview">
+                <div class="preview-item">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI Writing Assistant</h3>
+                    <p>Smart suggestions and auto-completion</p>
+                </div>
+                <div class="preview-item">
+                    <i class="fas fa-language"></i>
+                    <h3>Grammar & Style</h3>
+                    <p>Real-time writing improvements</p>
+                </div>
+                <div class="preview-item">
+                    <i class="fas fa-search"></i>
+                    <h3>Smart Research</h3>
+                    <p>Find and cite sources automatically</p>
+                </div>
+                <div class="preview-item">
+                    <i class="fas fa-file-export"></i>
+                    <h3>Multiple Formats</h3>
+                    <p>Export to PDF, DOCX, and more</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <div class="update-item">
+                <span class="update-badge coming-soon">Coming Q1 2025</span>
+                <div class="update-date">Expected: February 2025</div>
+                <div class="update-title">AI-Powered Document Editor</div>
+                <div class="update-description">
+                    A completely redesigned document creation experience with built-in AI assistance. Write essays, research papers, and notes with intelligent suggestions, grammar checking, and citation management.
+                </div>
+                <ul class="feature-list">
+                    <li>AI writing assistant with context-aware suggestions</li>
+                    <li>Automatic grammar and style checking</li>
+                    <li>Smart citation generator (APA, MLA, Chicago)</li>
+                    <li>Research helper with source recommendations</li>
+                    <li>Collaborative editing with real-time sync</li>
+                    <li>Export to PDF, DOCX, and LaTeX</li>
+                </ul>
+            </div>
+
+            <div class="update-item">
+                <span class="update-badge">Released</span>
+                <div class="update-date">January 15, 2025</div>
+                <div class="update-title">Enhanced AI Assistant</div>
+                <div class="update-description">
+                    Your AI assistant just got smarter! Now with natural language processing and better understanding of complex commands.
+                </div>
+                <ul class="feature-list">
+                    <li>Natural language task creation</li>
+                    <li>Smart date recognition ("tomorrow", "next week")</li>
+                    <li>Bulk operations support</li>
+                    <li>Improved command accuracy</li>
+                </ul>
+            </div>
+
+            <div class="update-item">
+                <span class="update-badge">Released</span>
+                <div class="update-date">January 8, 2025</div>
+                <div class="update-title">Dark Mode & Custom Themes</div>
+                <div class="update-description">
+                    Requested by many students! Study late at night with easy-on-the-eyes dark mode, plus customizable color themes.
+                </div>
+                <ul class="feature-list">
+                    <li>System-sync dark mode</li>
+                    <li>5 pre-built color themes</li>
+                    <li>Custom accent colors</li>
+                    <li>High contrast mode for accessibility</li>
+                </ul>
+            </div>
+
+            <div class="update-item">
+                <span class="update-badge">Released</span>
+                <div class="update-date">December 20, 2024</div>
+                <div class="update-title">Mobile App Launch</div>
+                <div class="update-description">
+                    Ennovyx is now available on iOS and Android! Take your productivity on the go with our native mobile apps.
+                </div>
+                <ul class="feature-list">
+                    <li>Native iOS and Android apps</li>
+                    <li>Push notifications for tasks and events</li>
+                    <li>Offline mode support</li>
+                    <li>Quick capture widget</li>
+                </ul>
+            </div>
+
+            <div class="update-item">
+                <span class="update-badge">Released</span>
+                <div class="update-date">December 1, 2024</div>
+                <div class="update-title">Discipline Tracker 2.0</div>
+                <div class="update-description">
+                    Major upgrade to the habit tracking system with advanced analytics and motivational features.
+                </div>
+                <ul class="feature-list">
+                    <li>30-day streak tracking</li>
+                    <li>Visual progress charts</li>
+                    <li>Weekly consistency scores</li>
+                    <li>Achievement badges and milestones</li>
+                </ul>
+            </div>
+
+            <div class="update-item">
+                <span class="update-badge">Released</span>
+                <div class="update-date">November 15, 2024</div>
+                <div class="update-title">Ennovyx Platform Launch</div>
+                <div class="update-description">
+                    The official launch of Ennovyx - the all-in-one student productivity platform! 🎉
+                </div>
+                <ul class="feature-list">
+                    <li>Complete task management system</li>
+                    <li>Subject organization with notes and documents</li>
+                    <li>Integrated calendar</li>
+                    <li>Expense tracking</li>
+                    <li>AI command assistant</li>
+                    <li>Email notifications and summaries</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background: var(--gray-50); padding: 40px; border-radius: 20px; border: 2px dashed var(--gray-200); text-align: center; margin-top: 40px;">
+            <i class="fas fa-lightbulb" style="font-size: 40px; color: var(--primary); margin-bottom: 16px;"></i>
+            <h3 style="font-size: 24px; margin-bottom: 12px;">Have a Feature Request?</h3>
+            <p style="color: var(--gray-600); margin-bottom: 20px;">We'd love to hear your ideas! Let us know what features you'd like to see.</p>
+            <a href="contact.html" style="background: var(--primary); color: white; padding: 12px 28px; border-radius: 30px; text-decoration: none; font-weight: 600; display: inline-block;">Share Your Ideas</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ennovyx. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,44 @@
+{
+  "name": "Ennovyx",
+  "short_name": "Ennovyx",
+  "description": "Your student productivity hub — tasks, AI, calendar, expenses and more.",
+  "start_url": "/dashboard/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "categories": ["productivity", "education"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Tasks",
+      "url": "/dashboard/?tab=tasks",
+      "description": "Go to Tasks"
+    },
+    {
+      "name": "AI Research",
+      "url": "/dashboard/?tab=ai-research-page",
+      "description": "Open AI Research"
+    },
+    {
+      "name": "University",
+      "url": "/university",
+      "description": "Ennovyx University"
+    }
+  ]
+}

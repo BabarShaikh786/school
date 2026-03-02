@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EU Admin — Ennovyx University</title>
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:#09090f;color:#e5e7eb;min-height:100vh}
+.nav{display:flex;align-items:center;gap:16px;padding:14px 32px;background:#0f0f18;border-bottom:1px solid rgba(255,255,255,0.07)}
+.nav-title{font-size:15px;font-weight:700;color:#fff}.nav-title span{color:#818cf8}
+.nav a{margin-left:auto;font-size:13px;color:#9ca3af;text-decoration:none}
+
+/* Auth */
+.auth-gate{max-width:380px;margin:100px auto;text-align:center;padding:40px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:20px}
+.auth-gate h2{font-size:20px;margin-bottom:8px;color:#fff}
+.auth-gate p{color:#9ca3af;font-size:13px;margin-bottom:24px}
+.key-input{width:100%;padding:12px 16px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:#fff;font-size:14px;outline:none;margin-bottom:12px;font-family:inherit}
+.key-input:focus{border-color:rgba(99,102,241,0.5)}
+.btn-primary{width:100%;padding:11px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;font-size:14px;font-weight:600;border:none;cursor:pointer}
+
+/* Layout */
+.wrap{max-width:960px;margin:0 auto;padding:40px 24px}
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+.page-title{font-size:22px;font-weight:700;color:#fff}
+.btn-new{padding:10px 22px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer}
+
+/* Form panel */
+.form-panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:18px;padding:28px;margin-bottom:32px;display:none}
+.form-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:24px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+label{font-size:11px;font-weight:700;color:#6b7280;letter-spacing:0.6px;text-transform:uppercase}
+input[type=text],input[type=url],textarea,select{padding:10px 14px;border-radius:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:#fff;font-size:13.5px;font-family:inherit;outline:none;transition:border-color 0.15s;width:100%}
+input:focus,textarea:focus,select:focus{border-color:rgba(99,102,241,0.5)}
+select option{background:#1a1a2e}
+textarea{resize:vertical;min-height:80px}
+
+/* Upload zones */
+.upload-zone{border:2px dashed rgba(255,255,255,0.12);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;background:rgba(255,255,255,0.03)}
+.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(99,102,241,0.5);background:rgba(99,102,241,0.07)}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.upload-zone-icon{font-size:28px;color:#6366f1;margin-bottom:8px}
+.upload-zone-text{font-size:13px;color:#9ca3af}
+.upload-zone-hint{font-size:11px;color:#6b7280;margin-top:4px}
+.upload-zone.has-files{border-color:rgba(34,197,94,0.4);background:rgba(34,197,94,0.05)}
+
+/* File previews */
+.video-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.video-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.05);border-radius:9px;border:1px solid rgba(255,255,255,0.08)}
+.video-item-name{flex:1;font-size:12.5px;color:#e5e7eb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.video-item-size{font-size:11px;color:#6b7280;flex-shrink:0}
+.video-item-del{background:rgba(239,68,68,0.15);border:none;color:#f87171;border-radius:6px;width:24px;height:24px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.thumb-preview{width:100%;height:120px;object-fit:cover;border-radius:10px;margin-top:10px;display:none}
+.pdf-preview{display:none;align-items:center;gap:8px;padding:8px 12px;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:9px;margin-top:8px;font-size:12.5px;color:#fca5a5}
+
+/* Category custom input */
+.cat-row{display:flex;gap:8px;align-items:flex-end}
+.cat-row select{flex:1}
+.btn-add-cat{padding:10px 14px;border-radius:9px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.3);color:#818cf8;font-size:12px;cursor:pointer;white-space:nowrap;flex-shrink:0}
+
+/* Progress bar */
+.upload-progress{display:none;margin-top:16px}
+.progress-bar-wrap{height:6px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;margin-top:8px}
+.progress-bar{height:100%;background:linear-gradient(90deg,#6366f1,#7c3aed);border-radius:10px;width:0%;transition:width 0.3s}
+.progress-label{font-size:12px;color:#9ca3af}
+
+/* Existing videos on edit */
+.existing-videos{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.existing-video-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,0.04);border-radius:9px;border:1px solid rgba(255,255,255,0.07)}
+.existing-video-link{flex:1;font-size:12px;color:#818cf8;word-break:break-all}
+.btn-remove-vid{background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.2);color:#f87171;border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer}
+
+/* Form actions */
+.form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.07)}
+.btn-cancel{padding:9px 20px;border-radius:9px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:#9ca3af;font-size:13px;cursor:pointer}
+.btn-save{padding:9px 24px;border-radius:9px;background:linear-gradient(135deg,#6366f1,#7c3aed);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer;display:flex;align-items:center;gap:8px}
+.btn-save:disabled{opacity:0.5;cursor:not-allowed}
+
+/* Course list */
+.courses-list{display:flex;flex-direction:column;gap:12px}
+.course-row{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)}
+.course-thumb{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;background:linear-gradient(135deg,#4338ca,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:22px;color:rgba(255,255,255,0.35)}
+.course-thumb img{width:100%;height:100%;border-radius:10px;object-fit:cover}
+.course-info{flex:1;min-width:0}
+.course-name{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px}
+.course-meta{font-size:12px;color:#6b7280}
+.course-actions{display:flex;gap:8px;flex-shrink:0}
+.btn-edit{padding:6px 14px;border-radius:7px;background:rgba(99,102,241,0.14);border:1px solid rgba(99,102,241,0.25);color:#818cf8;font-size:12px;font-weight:600;cursor:pointer}
+.btn-delete{padding:6px 14px;border-radius:7px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);color:#f87171;font-size:12px;font-weight:600;cursor:pointer}
+.empty{text-align:center;padding:60px;color:#6b7280;font-size:14px}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:9999;animation:slideUp 0.25s ease;background:#22c55e;color:#fff}
+.toast.error{background:#ef4444}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-title">EU <span>Admin</span></div>
+  <a href="/university">← View Site</a>
+</div>
+
+<div class="auth-gate" id="authGate">
+  <div style="font-size:44px;margin-bottom:16px">🔐</div>
+  <h2>Admin Access</h2>
+  <p>Enter your admin key to manage courses</p>
+  <input class="key-input" type="password" id="adminKeyInput" placeholder="Admin key..." onkeydown="if(event.key==='Enter')verifyKey()">
+  <button class="btn-primary" onclick="verifyKey()">Access Panel</button>
+  <div id="authError" style="color:#f87171;font-size:12px;margin-top:10px;display:none">Wrong key</div>
+</div>
+
+<div id="adminPanel" style="display:none">
+<div class="wrap">
+  <div class="page-header">
+    <div class="page-title">Manage Courses</div>
+    <button class="btn-new" onclick="showForm()">+ New Course</button>
+  </div>
+
+  <!-- Create/Edit Form -->
+  <div class="form-panel" id="courseForm">
+    <div class="form-title" id="formTitle">New Course</div>
+    <input type="hidden" id="editId">
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Course Title *</label>
+        <input type="text" id="fTitle" placeholder="e.g. Python for Beginners">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <div class="cat-row">
+          <select id="fCategory">
+            <option>General</option>
+            <option>Programming</option>
+            <option>Mathematics</option>
+            <option>Science</option>
+            <option>Language</option>
+            <option>Business</option>
+            <option>Design</option>
+            <option>Study Skills</option>
+          </select>
+          <button class="btn-add-cat" onclick="addCustomCategory()">+ Custom</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group full" style="margin-bottom:16px">
+      <label>Description</label>
+      <textarea id="fDesc" placeholder="What will students learn in this course?"></textarea>
+    </div>
+
+    <!-- Videos upload -->
+    <div class="form-group full" style="margin-bottom:16px">
+      <label>Videos (upload multiple)</label>
+      <div id="existingVideos" style="display:none">
+        <div style="font-size:11px;color:#9ca3af;margin-bottom:6px">Existing videos (click × to remove):</div>
+        <div class="existing-videos" id="existingVideosList"></div>
+      </div>
+      <div class="upload-zone" id="videoZone">
+        <input type="file" id="fVideoFiles" accept="video/mp4,video/mov,video/webm,video/mkv,video/avi" multiple onchange="handleVideoFiles(this.files)">
+        <div class="upload-zone-icon"><i class='bx bx-video'></i></div>
+        <div class="upload-zone-text">Click or drag videos here</div>
+        <div class="upload-zone-hint">MP4, MOV, WEBM, MKV · Up to 500MB each · Multiple allowed</div>
+      </div>
+      <div class="video-list" id="videoList"></div>
+    </div>
+
+    <!-- PDF upload -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>PDF (upload)</label>
+        <div class="upload-zone" id="pdfZone">
+          <input type="file" id="fPdfFile" accept=".pdf" onchange="handlePdfFile(this.files[0])">
+          <div class="upload-zone-icon"><i class='bx bx-file-pdf'></i></div>
+          <div class="upload-zone-text">Click to upload PDF</div>
+          <div class="upload-zone-hint">.pdf only</div>
+        </div>
+        <div class="pdf-preview" id="pdfPreview"><i class='bx bx-file-pdf'></i><span id="pdfName"></span></div>
+      </div>
+
+      <!-- Thumbnail upload -->
+      <div class="form-group">
+        <label>Thumbnail (upload)</label>
+        <div class="upload-zone" id="thumbZone">
+          <input type="file" id="fThumbFile" accept="image/jpeg,image/png,image/gif,image/webp" onchange="handleThumbFile(this.files[0])">
+          <div class="upload-zone-icon"><i class='bx bx-image'></i></div>
+          <div class="upload-zone-text">Click to upload thumbnail</div>
+          <div class="upload-zone-hint">JPG, PNG, WEBP</div>
+        </div>
+        <img class="thumb-preview" id="thumbPreview" alt="thumbnail">
+      </div>
+    </div>
+
+    <!-- Upload progress -->
+    <div class="upload-progress" id="uploadProgress">
+      <div class="progress-label" id="progressLabel">Uploading...</div>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-cancel" onclick="hideForm()">Cancel</button>
+      <button class="btn-save" id="saveBtn" onclick="saveCourse()">
+        <i class='bx bx-save'></i> Save Course
+      </button>
+    </div>
+  </div>
+
+  <!-- Courses list -->
+  <div class="courses-list" id="coursesList">
+    <div class="empty">Loading courses...</div>
+  </div>
+</div>
+</div>
+
+<script>
+let adminKey = '';
+let courses = [];
+let selectedVideoFiles = [];
+let selectedPdfFile = null;
+let selectedThumbFile = null;
+
+// ── Auth ────────────────────────────────────────────────────
+async function verifyKey() {
+  const key = document.getElementById('adminKeyInput').value.trim();
+  if (!key) return;
+  // Test the key by trying to create a dummy request
+  const res = await fetch('/api/university/courses', { method: 'POST',
+    body: (() => { const f = new FormData(); f.append('adminKey', key); f.append('title', ''); return f; })()
+  });
+  const data = await res.json();
+  if (res.status === 401) {
+    document.getElementById('authError').style.display = 'block';
+    return;
+  }
+  // Key is good (even if title error, it passed auth)
+  adminKey = key;
+  document.getElementById('authGate').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  loadCourses();
+}
+
+// ── Load courses ────────────────────────────────────────────
+async function loadCourses() {
+  const res = await fetch('/api/university/courses');
+  courses = await res.json();
+  renderCourses();
+}
+
+function renderCourses() {
+  const list = document.getElementById('coursesList');
+  if (!courses.length) {
+    list.innerHTML = '<div class="empty">No courses yet. Create your first one!</div>';
+    return;
+  }
+  list.innerHTML = courses.map(c => {
+    const types = [(c.videoUrls?.length || c.videoUrl) && '🎬 Video', c.pdfUrl && '📄 PDF'].filter(Boolean).join(' + ');
+    const thumbEl = c.thumbnail
+      ? `<div class="course-thumb"><img src="${c.thumbnail}" alt=""></div>`
+      : `<div class="course-thumb"><i class='bx bx-play-circle'></i></div>`;
+    return `
+      <div class="course-row">
+        ${thumbEl}
+        <div class="course-info">
+          <div class="course-name">${c.title}</div>
+          <div class="course-meta">${c.category} · ${types || 'No media'} · ${c.views||0} views</div>
+        </div>
+        <div class="course-actions">
+          <button class="btn-edit" onclick="editCourse('${c.id}')">Edit</button>
+          <button class="btn-delete" onclick="deleteCourse('${c.id}')">Delete</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── File handlers ───────────────────────────────────────────
+function handleVideoFiles(files) {
+  selectedVideoFiles = [...selectedVideoFiles, ...Array.from(files)];
+  renderVideoList();
+  const zone = document.getElementById('videoZone');
+  zone.classList.toggle('has-files', selectedVideoFiles.length > 0);
+}
+
+function renderVideoList() {
+  const list = document.getElementById('videoList');
+  if (!selectedVideoFiles.length) { list.innerHTML = ''; return; }
+  list.innerHTML = selectedVideoFiles.map((f, i) => `
+    <div class="video-item">
+      <i class='bx bx-video' style="color:#6366f1;font-size:16px;flex-shrink:0"></i>
+      <span class="video-item-name">${f.name}</span>
+      <span class="video-item-size">${(f.size/1024/1024).toFixed(1)}MB</span>
+      <button class="video-item-del" onclick="removeVideo(${i})">×</button>
+    </div>`).join('');
+}
+
+function removeVideo(i) {
+  selectedVideoFiles.splice(i, 1);
+  renderVideoList();
+  document.getElementById('videoZone').classList.toggle('has-files', selectedVideoFiles.length > 0);
+}
+
+function handlePdfFile(file) {
+  if (!file) return;
+  selectedPdfFile = file;
+  const preview = document.getElementById('pdfPreview');
+  document.getElementById('pdfName').textContent = file.name;
+  preview.style.display = 'flex';
+  document.getElementById('pdfZone').classList.add('has-files');
+}
+
+function handleThumbFile(file) {
+  if (!file) return;
+  selectedThumbFile = file;
+  const preview = document.getElementById('thumbPreview');
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = 'block';
+  document.getElementById('thumbZone').classList.add('has-files');
+}
+
+// ── Category ────────────────────────────────────────────────
+function addCustomCategory() {
+  const name = prompt('Enter custom category name:');
+  if (!name?.trim()) return;
+  const sel = document.getElementById('fCategory');
+  const opt = document.createElement('option');
+  opt.value = name.trim(); opt.textContent = name.trim(); opt.selected = true;
+  sel.appendChild(opt);
+}
+
+// ── Show/hide form ──────────────────────────────────────────
+function showForm(course) {
+  const panel = document.getElementById('courseForm');
+  panel.style.display = 'block';
+  document.getElementById('formTitle').textContent = course ? 'Edit Course' : 'New Course';
+  document.getElementById('editId').value = course?.id || '';
+  document.getElementById('fTitle').value = course?.title || '';
+  document.getElementById('fDesc').value = course?.description || '';
+  selectedVideoFiles = [];
+  selectedPdfFile = null;
+  selectedThumbFile = null;
+  document.getElementById('videoList').innerHTML = '';
+  document.getElementById('pdfPreview').style.display = 'none';
+  document.getElementById('thumbPreview').style.display = 'none';
+  document.getElementById('videoZone').classList.remove('has-files');
+  document.getElementById('pdfZone').classList.remove('has-files');
+  document.getElementById('thumbZone').classList.remove('has-files');
+  document.getElementById('uploadProgress').style.display = 'none';
+
+  // Set category
+  const sel = document.getElementById('fCategory');
+  if (course?.category) {
+    let opt = Array.from(sel.options).find(o => o.value === course.category);
+    if (!opt) {
+      opt = document.createElement('option');
+      opt.value = course.category; opt.textContent = course.category;
+      sel.appendChild(opt);
+    }
+    sel.value = course.category;
+  }
+
+  // Show existing videos if editing
+  const existingDiv = document.getElementById('existingVideos');
+  const existingList = document.getElementById('existingVideosList');
+  const videos = course?.videoUrls || (course?.videoUrl ? [course.videoUrl] : []);
+  if (course && videos.length) {
+    existingDiv.style.display = 'block';
+    existingList.innerHTML = videos.map(u => `
+      <div class="existing-video-item">
+        <span class="existing-video-link">${u}</span>
+        <button class="btn-remove-vid" onclick="removeExistingVideo('${course.id}','${u}')">× Remove</button>
+      </div>`).join('');
+  } else {
+    existingDiv.style.display = 'none';
+  }
+
+  panel.scrollIntoView({ behavior: 'smooth' });
+}
+
+function hideForm() {
+  document.getElementById('courseForm').style.display = 'none';
+}
+
+function editCourse(id) {
+  const c = courses.find(x => x.id === id);
+  if (c) showForm(c);
+}
+
+// ── Remove existing video ───────────────────────────────────
+async function removeExistingVideo(courseId, videoUrl) {
+  if (!confirm('Remove this video?')) return;
+  const res = await fetch(`/api/university/courses/${courseId}/video`, {
+    method: 'DELETE',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ adminKey, videoUrl })
+  });
+  if (res.ok) { toast('Video removed'); loadCourses(); editCourse(courseId); }
+}
+
+// ── Save course ──────────────────────────────────────────────
+async function saveCourse() {
+  const id = document.getElementById('editId').value;
+  const title = document.getElementById('fTitle').value.trim();
+  if (!title) { toast('Title is required', true); return; }
+
+  const saveBtn = document.getElementById('saveBtn');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = '<i class="bx bx-loader-alt" style="animation:spin2 0.6s linear infinite"></i> Saving...';
+
+  const fd = new FormData();
+  fd.append('adminKey', adminKey);
+  fd.append('title', title);
+  fd.append('description', document.getElementById('fDesc').value.trim());
+  fd.append('category', document.getElementById('fCategory').value);
+  selectedVideoFiles.forEach(f => fd.append('videoFile', f));
+  if (selectedPdfFile) fd.append('pdfFile', selectedPdfFile);
+  if (selectedThumbFile) fd.append('thumbnailFile', selectedThumbFile);
+
+  // Show progress
+  const progress = document.getElementById('uploadProgress');
+  const bar = document.getElementById('progressBar');
+  const label = document.getElementById('progressLabel');
+  progress.style.display = 'block';
+
+  try {
+    const xhr = new XMLHttpRequest();
+    const url = id ? `/api/university/courses/${id}` : '/api/university/courses';
+    xhr.open(id ? 'PUT' : 'POST', url);
+
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const pct = Math.round(e.loaded / e.total * 100);
+        bar.style.width = pct + '%';
+        label.textContent = `Uploading... ${pct}%`;
+      }
+    };
+
+    xhr.onload = () => {
+      const data = JSON.parse(xhr.responseText);
+      if (data.error) { toast(data.error, true); }
+      else {
+        label.textContent = 'Done!';
+        bar.style.width = '100%';
+        toast(id ? 'Course updated!' : 'Course created!');
+        setTimeout(() => { hideForm(); loadCourses(); }, 500);
+      }
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = '<i class="bx bx-save"></i> Save Course';
+    };
+
+    xhr.onerror = () => {
+      toast('Upload failed', true);
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = '<i class="bx bx-save"></i> Save Course';
+    };
+
+    xhr.send(fd);
+  } catch(e) {
+    toast('Error: ' + e.message, true);
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = '<i class="bx bx-save"></i> Save Course';
+  }
+}
+
+// ── Delete course ────────────────────────────────────────────
+async function deleteCourse(id) {
+  if (!confirm('Delete this course permanently?')) return;
+  const res = await fetch(`/api/university/courses/${id}`, {
+    method: 'DELETE',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ adminKey })
+  });
+  const data = await res.json();
+  if (data.error) toast(data.error, true);
+  else { toast('Course deleted'); loadCourses(); }
+}
+
+// ── Toast ───────────────────────────────────────────────────
+function toast(msg, isErr) {
+  const t = document.createElement('div');
+  t.className = 'toast' + (isErr ? ' error' : '');
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+</script>
+<style>
+@keyframes spin2{to{transform:rotate(360deg)}}
+</style>
+</body>
+</html>

@@ -1,0 +1,539 @@
+/* ========================================
+   CALENDAR PAGE - CSS VARIABLES VERSION
+   ======================================== */
+
+.calx-app {
+    height: auto;
+    background: var(--card-bg);
+    border-radius: var(--radius-2xl);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    transition: background-color var(--transition-normal);
+}
+
+/* ========================================
+   CALENDAR HEADER
+   ======================================== */
+
+.calx-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.calx-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.calx-btn {
+    background: var(--bg-hover);
+    border: none;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background var(--transition-fast);
+}
+
+.calx-btn:hover {
+    background: var(--bg-active);
+}
+
+/* ========================================
+   CALENDAR GRID
+   ======================================== */
+
+.calx-weekdays,
+.calx-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.calx-weekdays span {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.calx-days {
+    margin-top: 10px;
+}
+
+.calx-day {
+    height: 110px;
+    border-radius: var(--radius-xl);
+    background: var(--bg-hover);
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition-fast);
+}
+
+.calx-day strong {
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+}
+
+.calx-day:hover {
+    background: var(--bg-active);
+    transform: scale(1.02);
+}
+
+.calx-day.other {
+    opacity: 0.35;
+}
+
+.calx-day.today {
+    background: #60c2ff;
+    color: var(--text-inverted);
+}
+
+.calx-day.today strong {
+    color: var(--text-inverted);
+}
+
+/* Dark theme today color */
+body.dark-theme .calx-day.today {
+    background: #3b82f6;
+}
+
+/* ========================================
+   CALENDAR EVENTS
+   ======================================== */
+
+.calx-event {
+    font-size: 11px;
+    background: #ff3535;
+    color: var(--text-inverted);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background var(--transition-fast);
+}
+
+.calx-event:hover {
+    background: #ff1f1f;
+}
+
+/* Task event styling */
+.calx-task {
+    background: #ff9100 !important;
+}
+
+.calx-task:hover {
+    background: #e68200 !important;
+}
+
+/* Dark theme event colors */
+body.dark-theme .calx-event {
+    background: #ef4444;
+}
+
+body.dark-theme .calx-task {
+    background: #f59e0b !important;
+}
+
+.calx-event-more {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+    text-align: center;
+}
+
+/* ========================================
+   EVENT SIDEBAR
+   ======================================== */
+
+.calx-sidebar {
+    position: fixed;
+    right: -360px;
+    top: 0;
+    width: 360px;
+    height: 100vh;
+    background: var(--card-bg);
+    box-shadow: var(--shadow-xl);
+    transition: right var(--transition-normal), background-color var(--transition-normal);
+    padding: 20px;
+    z-index: 3000;
+}
+
+.calx-sidebar.open {
+    right: 0;
+}
+
+.calx-sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.calx-sidebar-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.calx-sidebar-header button {
+    background: none;
+    border: none;
+    font-size: 26px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+.calx-sidebar-header button:hover {
+    color: var(--text-primary);
+}
+
+/* ========================================
+   EVENT FORM
+   ======================================== */
+
+.calx-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.calx-form input,
+.calx-form textarea {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--input-border);
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.calx-form input:focus,
+.calx-form textarea:focus {
+    outline: none;
+    background: var(--input-focus-bg);
+    border-color: var(--input-focus-border);
+}
+
+.calx-form input::placeholder,
+.calx-form textarea::placeholder {
+    color: var(--input-placeholder);
+}
+
+.calx-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.calx-form button {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background var(--transition-fast);
+}
+
+.calx-form button:hover {
+    background: var(--btn-primary-hover);
+}
+
+/* ========================================
+   CALENDAR LEGEND
+   ======================================== */
+
+.calx-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-sm);
+}
+
+.legend-event {
+    background: #ff3535;
+}
+
+.legend-task {
+    background: #ff9100;
+}
+
+.legend-today {
+    background: #60c2ff;
+}
+
+/* ========================================
+   MINI CALENDAR (Optional)
+   ======================================== */
+
+.calx-mini {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.calx-mini .calx-day {
+    height: 40px;
+    font-size: 11px;
+    padding: 4px;
+}
+
+.calx-mini .calx-weekdays span {
+    font-size: 10px;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .calx-app {
+        padding: 16px;
+    }
+
+    .calx-day {
+        height: 80px;
+        padding: 6px;
+    }
+
+    .calx-day strong {
+        font-size: 12px;
+    }
+
+    .calx-event {
+        font-size: 9px;
+        padding: 1px 4px;
+    }
+
+    .calx-sidebar {
+        width: 100%;
+        right: -100%;
+    }
+
+    .calx-title {
+        font-size: 18px;
+    }
+
+    .calx-btn {
+        padding: 4px 10px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calx-day {
+        height: 60px;
+        padding: 4px;
+    }
+
+    .calx-weekdays,
+    .calx-days {
+        gap: 6px;
+    }
+
+    .calx-event {
+        display: none; /* Hide events on very small screens */
+    }
+
+    .calx-day.today::after {
+        content: '•';
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        font-size: 16px;
+    }
+}
+
+/* ========================================
+   CALENDAR ANIMATIONS
+   ======================================== */
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.calx-day {
+    animation: slideInRight 0.3s ease-out;
+}
+
+/* Stagger animation for calendar days */
+.calx-days .calx-day:nth-child(1) { animation-delay: 0.01s; }
+.calx-days .calx-day:nth-child(2) { animation-delay: 0.02s; }
+.calx-days .calx-day:nth-child(3) { animation-delay: 0.03s; }
+.calx-days .calx-day:nth-child(4) { animation-delay: 0.04s; }
+.calx-days .calx-day:nth-child(5) { animation-delay: 0.05s; }
+.calx-days .calx-day:nth-child(6) { animation-delay: 0.06s; }
+.calx-days .calx-day:nth-child(7) { animation-delay: 0.07s; }
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .calx-sidebar {
+        display: none;
+    }
+
+    .calx-btn {
+        display: none;
+    }
+
+    .calx-day {
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
+
+    .calx-app {
+        box-shadow: none;
+    }
+}
+/* ========================================
+   MONTH EVENTS LIST (below calendar)
+   ======================================== */
+
+.calx-list-wrap {
+    margin-top: 24px;
+    background: var(--card-bg);
+    border-radius: var(--radius-2xl);
+    padding: 20px 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.calx-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.calx-list-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.calx-add-btn {
+    padding: 6px 14px;
+    background: var(--color-primary, #6366f1);
+    color: var(--text-inverted);
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.calx-add-btn:hover { opacity: 0.85; }
+
+.calx-event-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.calx-list-empty {
+    text-align: center;
+    padding: 28px 0;
+    color: var(--text-tertiary);
+    font-size: 13px;
+}
+
+.calx-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 12px;
+    background: var(--bg-hover);
+    transition: background 0.15s;
+    cursor: default;
+}
+.calx-list-item:hover { background: var(--bg-active); }
+
+.calx-list-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.calx-list-info { flex: 1; min-width: 0; }
+
+.calx-list-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.calx-list-name.done {
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.calx-list-meta {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.calx-list-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.calx-list-badge.task  { background: rgba(249,115,22,0.12); color: #f97316; }
+.calx-list-badge.event { background: rgba(99,102,241,0.12); color: #6366f1; }
+.calx-list-badge.high  { background: rgba(239,68,68,0.12);  color: #ef4444; }
+.calx-list-badge.low   { background: rgba(34,197,94,0.12);  color: #22c55e; }
+
+/* Today separator */
+.calx-list-day-sep {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 6px 0 2px;
+}
+.calx-list-day-sep.is-today { color: #6366f1; }

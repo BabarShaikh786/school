@@ -1,0 +1,537 @@
+/* ========================================
+   SETTINGS PAGE - CSS VARIABLES VERSION
+   ======================================== */
+
+.settings-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* ========================================
+   HEADER
+   ======================================== */
+
+.settings-header {
+    margin-bottom: 40px;
+}
+
+.settings-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.settings-subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   SECTIONS
+   ======================================== */
+
+.settings-section {
+    margin-bottom: 40px;
+}
+
+.settings-section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.settings-section-header i {
+    font-size: 24px;
+    color: #667eea;
+}
+
+body.dark-theme .settings-section-header i {
+    color: #8b9dff;
+}
+
+.settings-section-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+.settings-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: background-color var(--transition-normal);
+}
+
+.settings-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    border-bottom: 1px solid var(--border-primary);
+}
+
+.settings-item:last-child {
+    border-bottom: none;
+}
+
+.settings-item-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.settings-item-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.settings-item-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   TOGGLE SWITCH
+   ======================================== */
+
+.settings-toggle {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 28px;
+    flex-shrink: 0;
+}
+
+.settings-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.settings-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-active);
+    transition: var(--transition-normal);
+    border-radius: 28px;
+}
+
+.settings-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--text-inverted);
+    transition: var(--transition-normal);
+    border-radius: var(--radius-full);
+}
+
+.settings-toggle input:checked + .settings-toggle-slider {
+    background-color: #667eea;
+}
+
+body.dark-theme .settings-toggle input:checked + .settings-toggle-slider {
+    background-color: #8b9dff;
+}
+
+.settings-toggle input:checked + .settings-toggle-slider:before {
+    transform: translateX(24px);
+}
+
+/* ========================================
+   SELECT DROPDOWN
+   ======================================== */
+
+.settings-select {
+    padding: 10px 16px;
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: var(--card-bg);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    min-width: 150px;
+}
+
+.settings-select:hover {
+    border-color: #667eea;
+}
+
+body.dark-theme .settings-select:hover {
+    border-color: #8b9dff;
+}
+
+.settings-select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+body.dark-theme .settings-select:focus {
+    border-color: #8b9dff;
+    box-shadow: 0 0 0 3px rgba(139, 157, 255, 0.1);
+}
+
+/* ========================================
+   THEME SELECTOR
+   ======================================== */
+
+.theme-selector {
+    display: flex;
+    gap: 12px;
+}
+
+.theme-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    background: var(--card-bg);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    transition: all var(--transition-fast);
+}
+
+.theme-btn i {
+    font-size: 20px;
+}
+
+.theme-btn:hover {
+    border-color: #667eea;
+    background: var(--bg-hover);
+}
+
+body.dark-theme .theme-btn:hover {
+    border-color: #8b9dff;
+}
+
+.theme-btn.active {
+    border-color: #667eea;
+    background: #667eea;
+    color: var(--text-inverted);
+}
+
+body.dark-theme .theme-btn.active {
+    border-color: #8b9dff;
+    background: #8b9dff;
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.settings-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: var(--radius-md);
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.settings-btn i {
+    font-size: 18px;
+}
+
+.settings-btn-secondary {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.settings-btn-secondary:hover {
+    background: var(--bg-active);
+}
+
+.settings-btn-danger {
+    background: #fee;
+    color: #d32f2f;
+}
+
+body.dark-theme .settings-btn-danger {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
+.settings-btn-danger:hover {
+    background: #fdd;
+}
+
+body.dark-theme .settings-btn-danger:hover {
+    background: rgba(239, 68, 68, 0.25);
+}
+
+.settings-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.settings-footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* ========================================
+   NOTIFICATIONS
+   ======================================== */
+
+.settings-notification {
+    position: fixed;
+    top: 80px;
+    right: -400px;
+    background: var(--card-bg);
+    padding: 16px 24px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    font-size: 14px;
+    font-weight: 500;
+    transition: right var(--transition-normal), background-color var(--transition-normal);
+    z-index: 3000;
+}
+
+.settings-notification.show {
+    right: 20px;
+}
+
+.settings-notification-success {
+    border-left: 4px solid #2e7d32;
+    color: #2e7d32;
+}
+
+body.dark-theme .settings-notification-success {
+    border-left: 4px solid #4caf50;
+    color: #4caf50;
+}
+
+.settings-notification-error {
+    border-left: 4px solid #d32f2f;
+    color: #d32f2f;
+}
+
+body.dark-theme .settings-notification-error {
+    border-left: 4px solid #ef4444;
+    color: #ef4444;
+}
+
+.settings-notification-info {
+    border-left: 4px solid #1a73e8;
+    color: #1a73e8;
+}
+
+body.dark-theme .settings-notification-info {
+    border-left: 4px solid #42a5f5;
+    color: #42a5f5;
+}
+
+/* ========================================
+   LOADING ANIMATION
+   ======================================== */
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.bx-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .settings-container {
+        padding: 20px 16px;
+    }
+
+    .settings-header h1 {
+        font-size: 24px;
+    }
+
+    .settings-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .settings-item-info {
+        margin-right: 0;
+    }
+
+    .theme-selector {
+        width: 100%;
+    }
+
+    .theme-btn {
+        flex: 1;
+    }
+
+    .settings-notification {
+        left: 10px;
+        right: 10px;
+        width: auto;
+    }
+
+    .settings-notification.show {
+        right: 10px;
+    }
+}
+
+/* ========================================
+   ACCOUNT INFO DISPLAY
+   ======================================== */
+
+.settings-account-display {
+    background: var(--bg-hover);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    transition: background-color var(--transition-normal);
+}
+
+.settings-account-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.settings-account-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+/* ========================================
+   ACTION BUTTONS SECTION
+   ======================================== */
+
+.settings-actions-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.settings-action-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--bg-hover);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition-fast);
+    color: var(--text-primary);
+}
+
+.settings-action-btn:hover {
+    background: var(--bg-active);
+}
+
+.settings-action-btn i {
+    font-size: 18px;
+}
+
+/* ========================================
+   PREFERENCES SECTION
+   ======================================== */
+
+.settings-preferences-item {
+    padding: 20px;
+    background: var(--bg-hover);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color var(--transition-normal);
+}
+
+.settings-preferences-item:hover {
+    background: var(--bg-active);
+}
+
+/* ========================================
+   DARK THEME SPECIFIC ADJUSTMENTS
+   ======================================== */
+
+body.dark-theme .settings-card {
+    box-shadow: var(--shadow-sm);
+}
+
+body.dark-theme .settings-account-display {
+    background: var(--bg-tertiary);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.settings-section {
+    animation: slideInRight 0.4s ease-out;
+}
+
+.settings-section:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.settings-section:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.settings-section:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.settings-section:nth-child(4) {
+    animation-delay: 0.4s;
+}

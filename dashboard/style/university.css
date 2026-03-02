@@ -1,0 +1,133 @@
+/* ── EU Dashboard Logo ──────────────────────────────────── */
+.eu-dash-logo {
+  height: 44px; width: auto; display: block; object-fit: contain;
+}
+
+/* ============================================================
+   ENNOVYX UNIVERSITY — Dashboard styles
+   ============================================================ */
+
+/* ── EU Dashboard Tab ─────────────────────────────────────── */
+.eu-page {
+  padding: 0;
+}
+.eu-page-header {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+.eu-page-brand { display: flex; align-items: center; gap: 14px; }
+.eu-logo-badge {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  border-radius: 14px; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 22px; color: #fff;
+}
+.eu-page-title {
+  font-size: 22px; font-weight: 700;
+  color: var(--text-primary); margin: 0; letter-spacing: -0.5px;
+}
+.eu-page-sub {
+  font-size: 13px; color: var(--text-secondary); margin: 2px 0 0;
+}
+
+/* Empty state */
+.eu-empty-state {
+  grid-column: 1 / -1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  min-height: 300px;
+}
+.eu-empty-logo {
+  display: none; /* replaced by image */
+}
+.eu-empty-img {
+  height: 52px; width: auto; margin-bottom: 20px;
+  display: block; object-fit: contain;
+}
+.eu-empty-title {
+  font-size: 24px; font-weight: 700;
+  color: var(--text-primary); margin: 0 0 10px; letter-spacing: -0.5px;
+}
+.eu-empty-sub {
+  font-size: 14px; color: var(--text-secondary);
+  line-height: 1.7; max-width: 300px; margin: 0 0 20px;
+}
+.eu-empty-badge {
+  font-size: 13px; font-weight: 600;
+  padding: 6px 16px; border-radius: 20px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+  color: #6366f1;
+}
+
+/* Course grid */
+.eu-courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+.eu-loading {
+  grid-column: 1/-1; display: flex;
+  justify-content: center; padding: 60px;
+}
+.eu-spinner {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--border-color);
+  border-top-color: #6366f1;
+  animation: spin 0.8s linear infinite;
+}
+.eu-course-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px; overflow: hidden;
+  cursor: pointer; transition: all 0.18s;
+}
+.eu-course-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  border-color: rgba(99,102,241,0.3);
+}
+body.dark-theme .eu-course-card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.eu-card-thumb {
+  width: 100%; height: 160px; object-fit: cover; display: block;
+}
+.eu-card-thumb-placeholder {
+  width: 100%; height: 160px;
+  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; color: rgba(255,255,255,0.5);
+}
+.eu-course-info { padding: 16px; }
+.eu-course-category {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.8px;
+  text-transform: uppercase; color: #6366f1; margin-bottom: 6px;
+}
+.eu-course-title {
+  font-size: 15px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 6px; line-height: 1.4;
+}
+.eu-course-desc {
+  font-size: 12.5px; color: var(--text-secondary);
+  line-height: 1.5; margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.eu-course-meta {
+  display: flex; align-items: center;
+  justify-content: space-between;
+}
+.eu-course-type {
+  font-size: 11px; color: #6366f1;
+  background: rgba(99,102,241,0.08);
+  padding: 3px 8px; border-radius: 6px;
+}
+.eu-course-views {
+  font-size: 11px; color: var(--text-secondary);
+  display: flex; align-items: center; gap: 4px;
+}

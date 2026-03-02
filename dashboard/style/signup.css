@@ -1,0 +1,93 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.signup-container {
+  display: flex;
+  background: #ffffff00;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.signup-form, .testimonial {
+  padding: 40px;
+}
+
+.signup-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 20px;
+
+}
+
+.signup-form h2 {
+  margin-bottom: 20px;
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.signup-options {
+  margin-bottom: 20px;
+}
+
+.signup-options label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+#signupBtn {
+  padding: 12px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#signupBtn:hover {
+  background-color: #333;
+}
+
+#loginBtn {
+  background: none;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 14px;
+}
+
+.testimonial {
+  flex: 1;
+  background: #f1f1f100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.profile-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Ennovyx">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ennovyx - AI-Powered Student's Productivity App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+      <link rel="icon" type="image/png" sizes="32x32" href="images/icon-final.png">
+      <meta name="description" content="Ennovyx is an all-in-one student productivity app to manage tasks, subjects, notes, calendar, habits, expenses, and AI planning in one dashboard." />
+     <meta name="keywords" content="student productivity app, study planner, student dashboard, task management for students, study organization app" />
+      <meta name="robots" content="index, follow" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #ede9fe;
+            --dark: #0a0a0a;
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+        }
+        body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; background: #f5f5f700; }
+        
+        /* Nav */
+        nav { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(255, 255, 255, 0.719); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.06); padding: 12px 20px; z-index: 1000; border-radius: 60px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); animation: slideDown 0.6s; width: 70%; max-width: 1200px; }
+        @keyframes slideDown { from { transform: translate(-50%, -100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+        .logo { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 700; }
+        .logo-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--gray-600); font-size: 13px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--dark); }
+        .get-started-btn { background: var(--primary); color: white !important; padding: 8px 20px; border-radius: 40px; font-weight: 600; font-size: 13px; transition: all 0.2s; }
+        .get-started-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,58,237,0.3); }
+        .menu-toggle { display: none; background: none; border: none; cursor: pointer; padding: 4px; }
+        .menu-toggle span { display: block; width: 20px; height: 2px; background: var(--dark); margin: 4px 0; transition: all 0.3s; }
+        .sidebar { position: fixed; top: 0; right: -100%; width: 280px; height: 100vh; background: white; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 2000; transition: right 0.3s; padding: 80px 30px 30px; }
+        .sidebar.active { right: 0; }
+        .sidebar-links { display: flex; flex-direction: column; gap: 24px; }
+        .sidebar-links a { text-decoration: none; color: var(--gray-600); font-size: 16px; font-weight: 500; transition: color 0.2s; }
+        .sidebar-links a:hover { color: var(--primary); }
+
+        /* Hero */
+        .hero { margin-top: 120px; padding: 60px 40px 80px; max-width: 1200px; margin-left: auto; margin-right: auto; text-align: center; background: linear-gradient(180deg, rgba(167,139,250,0.15) 0%, rgba(196,181,253,0.08) 30%, rgba(255,255,255,0) 60%); border-radius: 40px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; background: white; border: 1px solid rgba(124,58,237,0.2); border-radius: 40px; margin-bottom: 12px; font-size: 13px; font-weight: 500; color: var(--primary); animation: fadeInUp 0.8s; box-shadow: 0 2px 8px rgba(124,58,237,0.1); }
+        .hero-badge svg { width: 16px; height: 16px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-main { margin-bottom: 24px; animation: fadeInUp 0.8s 0.1s both; }
+        .hero-main h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        .hero-text-line { display: block; color: var(--dark); margin-bottom: 16px; }
+        .hero-text-highlight { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; position: relative; }
+        .hero-pill { position: relative; display: inline-flex; align-items: center; padding: 4px 20px; background: var(--primary); border-radius: 20px; color: white; font-size: 50px; font-weight: 600; }
+        .hero-pill-side::after { content: ''; position: absolute; top: -12px; right: -6px; width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 12px solid var(--primary); transform: rotate(25deg); }
+        .hero-pill-side { display: inline-flex; padding: 4px 12px; background: rgba(124,58,237,0.15); border-radius: 30px; color: var(--primary); font-size: 12px; font-weight: 600; position: relative; }
+        .hero-with { color: var(--dark); font-weight: 700; font-size: clamp(20px, 3.5vw, 36px); }
+        .hero-description { font-size: clamp(14px, 1.8vw, 17px); color: var(--gray-500); margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto; animation: fadeInUp 0.8s 0.2s both; line-height: 1.6; }
+        .hero-image { max-width: 900px; margin: 0 auto; animation: fadeInUp 1s 0.4s both; }
+        .hero-image img { width: 100%; height: auto; border-radius: 20px; border: 1px solid var(--gray-200); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+
+        /* Features */
+        .features-section { padding: 100px 40px; background: white; }
+        .features-container { max-width: 1200px; margin: 0 auto; }
+        .features-header { text-align: center; margin-bottom: 60px; }
+        .features-header h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 16px; background: linear-gradient(97deg, #202020 43%, #8f8f8f 111%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;            line-height: 125%;
+            letter-spacing: -1.68px; }
+        .features-header p { font-size: 18px; color: var(--gray-600); line-height: -35px; }
+        .feature-tabs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+        .feature-tab { padding: 8px 18px; border: 2px dashed rgba(0,0,0,0.08); border-radius: 30px; background: white; color: var(--gray-600); font-weight: 500; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+        .feature-tab:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); border-style: solid; }
+        .feature-tab.active { border-color: var(--primary); background: var(--primary); color: white; border-style: solid; }
+        .feature-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; background: var(--gray-50); padding: 60px; border-radius: 24px; }
+        .feature-details h3 { font-size: 32px; font-weight: 700; margin-bottom: 16px; }
+        .feature-details p { font-size: 16px; color: var(--gray-600); margin-bottom: 32px; line-height: 1.7; }
+        .replaces-label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .feature-list { list-style: none; margin-bottom: 32px; }
+        .feature-list li { padding: 8px 0; font-size: 15px; color: var(--gray-600); display: flex; align-items: center; gap: 10px; }
+        .feature-list li:before { content: "✓"; color: var(--primary); font-weight: 600; }
+        .explore-btn { background: var(--dark); color: white; padding: 12px 24px; border: none; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .explore-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .feature-cards { display: flex; flex-direction: column; gap: 14px; }
+        .feature-card { background: white; border: 1px solid var(--gray-200); border-radius: 16px; padding: 18px; display: flex; align-items: center; gap: 14px; transition: all 0.2s; }
+        .feature-card:hover { border-color: var(--primary); transform: translateX(4px); }
+        .feature-card-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; color: white; }
+        .feature-card-text { font-size: 14px; font-weight: 500; }
+
+        /* Pricing */
+        .pricing-section { padding: 100px 40px; background: var(--gray-50); }
+        .pricing-container { max-width: 1200px; margin: 0 auto; }
+        .pricing-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .pricing-left h2 { font-size: clamp(32px, 5vw, 48px); font-weight: 700; margin-bottom: 16px; background: linear-gradient(97deg, #202020 43%, #8f8f8f 111%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .pricing-left p { font-size: 16px; color: var(--gray-600); line-height: 1.7; }
+        .pricing-card { background: white; border: 1px solid var(--gray-200); border-radius: 24px; padding: 40px; transition: all 0.3s; }
+        .pricing-card:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(124,58,237,0.15); }
+        .pricing-card h3 { font-size: 16px; font-weight: 600; color: var(--gray-500); margin-bottom: 20px; }
+        .price { font-size: 56px; font-weight: 800; margin-bottom: 4px; color: var(--dark); }
+        .price span { font-size: 20px; font-weight: 400; color: var(--gray-500); }
+        .features-label { font-size: 11px; font-weight: 600; color: var(--gray-400); text-transform: uppercase; letter-spacing: 1px; margin: 28px 0 16px; }
+        .pricing-features { list-style: none; margin-bottom: 32px; }
+        .pricing-features li { padding: 10px 0; font-size: 14px; color: var(--gray-600); display: flex; align-items: center; gap: 8px; }
+        .pricing-features li:before { content: "✓"; color: var(--primary); font-weight: 600; }
+        .pricing-btn { width: 100%; background: var(--dark); color: white; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .pricing-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+
+        /* CTA */
+        .cta-section { background: linear-gradient(135deg, #d946ef 0%, #ec4899 25%, #f97316 75%, #f59e0b 100%); padding: 100px 40px; text-align: center; position: relative; overflow: hidden; margin: 50px 40px; border-radius: 30px; }
+        .cta-container { max-width: 900px; margin: 0 auto; position: relative; z-index: 2; }
+        .cta-icon { width: 80px; height: 80px; background: white; border-radius: 20px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 32px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .cta-icon img { width: 50px; height: 50px; }
+        .cta-section h2 { font-size: clamp(32px, 5vw, 54px); font-weight: 700; color: white; margin-bottom: 32px; letter-spacing: -0.02em; line-height: 1.1; }
+        .cta-btn { background: white; color: #1a1a1a; padding: 18px 40px; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; cursor: pointer; transition: all 0.2s; display: inline-block; }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+
+        /* Footer */
+        footer { background: var(--gray-50); color: var(--gray-600); padding: 60px 40px 20px 40px; border-top: 1px solid var(--gray-200); }
+        .footer-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; }
+        .footer-logo { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 14px; }
+        .footer-logo-icon { width: 28px; height: 28px; ; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: white; font-size: 14px; }
+        .footer-description { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+        .footer-section h4 { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 14px; }
+        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { text-decoration: none; color: var(--gray-600); font-size: 13px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
+        .footer-bottom { max-width: 1400px; margin: 36px auto 0; padding-top: 28px; border-top: 1px solid var(--gray-200); text-align: center; }
+        .footer-bottom p { color: var(--gray-500); font-size: 13px; }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .pricing-content { grid-template-columns: 1fr; gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            nav { top: 10px; padding: 10px 16px; width: 90%; box-shadow: none; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero { margin-top: 90px; padding: 40px 20px 60px; border-radius: 30px; width: 95%; }
+            .hero-text-highlight { gap: 8px; }
+            .hero-pill { padding: 5px 16px; font-size: 30px;  border-radius: 13px;}
+            .hero-with {  font-size: 30px; }
+            .hero-pill-side { padding: 3px 8px; font-size: 10px; display: none; }
+            .features-section, .pricing-section { padding: 60px 20px; }
+            .feature-content { grid-template-columns: 1fr; padding: 40px 30px; gap: 40px; }
+            .cta-section { padding: 60px 30px; margin: 30px 20px; }
+            .cta-section h2 { font-size: clamp(28px, 6vw, 40px); }
+            .feature-tabs { gap: 6px; }
+            .feature-tab { font-size: 13px; padding: 6px 14px; }
+            .footer-container { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo"><img src="images/icon-final.png" alt="" class="logo-icon"><span>Ennovyx</span></div>
+            <div class="nav-links">
+                <a href="/" >Home</a>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#install">Install</a>
+                <a href="/university">University</a>
+                <a href="/dashboard/">Dashboard</a>
+            </div>
+            <div class="nav-links"><a href="/signup" class="get-started-btn" >Sign In</a></div>
+            <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-links">
+            <a href="#home" onclick="document.getElementById('sidebar').classList.remove('active')">Home</a>
+            <a href="#features" onclick="document.getElementById('sidebar').classList.remove('active')">Features</a>
+            <a href="#pricing" onclick="document.getElementById('sidebar').classList.remove('active')">Pricing</a>
+            <a href="/university" onclick="document.getElementById('sidebar').classList.remove('active')">University</a>
+            <a href="/dashboard" onclick="document.getElementById('sidebar').classList.remove('active')">Dashboard</a>
+            <a href="/signup" class="get-started-btn" >Sign In</a>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-badge">
+            <svg viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 2l1.5 3 3.5.5-2.5 2.5.5 3.5-3-1.5-3 1.5.5-3.5L3 6l3.5-.5L8 2z"/>
+            </svg>
+            <span>Student Productivity App</span>
+        </div>
+        <div class="hero-main">
+            <h1>
+                <span class="hero-text-line">All Your Student Life.</span>
+                <span class="hero-text-highlight">
+                    <span class="hero-pill-side">Ennovyx</span>
+                    <span class="hero-with">One</span>
+                    <span class="hero-pill">Smart App</span>
+                    <span class="hero-pill-side">Ennovyx</span>
+                </span>
+            </h1>
+        </div>
+        <p class="hero-description">Tasks, subjects, documents, expenses, and an AI assistant — all in one productivity system built for students.</p>
+        <div class="hero-image">
+            <img src="images/image.png" alt="Dashboard">
+        </div>
+    </section>
+
+    <section class="features-section" id="features">
+        <div class="features-container">
+            <div class="features-header">
+                <h2>Built around how students actually work</h2>
+                <p>Not another productivity app with 47 settings. Just the tools you actually use, all in one place.</p>
+            </div>
+
+            <div class="feature-tabs">
+                <div class="feature-tab active" onclick="updateFeature('dashboard')">Dashboard</div>
+                <div class="feature-tab" onclick="updateFeature('tasks')">Tasks</div>
+                <div class="feature-tab" onclick="updateFeature('calendar')">Calendar</div>
+                <div class="feature-tab" onclick="updateFeature('subjects')">Subjects</div>
+                <div class="feature-tab" onclick="updateFeature('documents')">Documents</div>
+                <div class="feature-tab" onclick="updateFeature('expenses')">Expenses</div>
+                <div class="feature-tab" onclick="updateFeature('discipline')">Discipline</div>
+                <div class="feature-tab" style="background:linear-gradient(135deg,#6366f1,#7c3aed);color:white;border:none;" onclick="updateFeature('ai')">✦ AI Research</div>
+            </div>
+
+            <div class="feature-content">
+                <div class="feature-details">
+                    <h3 id="title">Your command center</h3>
+                    <p id="desc">Get a complete overview of your academic life in one glance. Track pending tasks, see upcoming events, and monitor your productivity—all in one centralized dashboard.</p>
+                    <div class="replaces-section">
+                        <div class="replaces-label">REPLACES</div>
+                        <ul class="feature-list" id="replaces">
+                            <li>Multiple productivity apps</li>
+                            <li>Scattered to-do lists</li>
+                            <li>Calendar reminders</li>
+                        </ul>
+                    </div>
+                    <a href="signup" ><button class="explore-btn">Explore solution →</button></a>
+                </div>
+                <div id="visual">
+                    <div class="feature-cards">
+                        <div class="feature-card"><div class="feature-card-icon"><i class="fas fa-chart-line"></i></div><div class="feature-card-text">Track all pending assignments</div></div>
+                        <div class="feature-card"><div class="feature-card-icon"><i class="fas fa-calendar-alt"></i></div><div class="feature-card-text">View upcoming exams and deadlines</div></div>
+                        <div class="feature-card"><div class="feature-card-icon"><i class="fas fa-chart-bar"></i></div><div class="feature-card-text">Monitor daily productivity metrics</div></div>
+                        <div class="feature-card"><div class="feature-card-icon"><i class="fas fa-bolt"></i></div><div class="feature-card-text">Quick access to all features</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-container">
+
+            <div style="text-align:center;margin-bottom:56px;">
+                <div style="display:inline-block;padding:6px 16px;background:#f0f0ff;border-radius:20px;font-size:12px;font-weight:600;color:#6366f1;letter-spacing:1px;margin-bottom:16px;">PRICING</div>
+                <h2 style="font-size:clamp(28px,4vw,44px);font-weight:700;color:#1e1e2e;margin-bottom:12px;line-height:1.2;">Simple pricing,<br>built for students.</h2>
+                <p style="font-size:16px;color:#6868a0;max-width:440px;margin:0 auto;line-height:1.6;">Same product, same features — priced fairly for where you are.</p>
+            </div>
+
+            <!-- Geo-detected single pricing card -->
+            <div style="max-width:480px;margin:0 auto;" id="geoPricingWrap">
+                <div id="geoPricingCard" class="geo-price-card">
+                    <div class="geo-spinner"></div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:20px;font-size:12px;color:#a0a0b8;">
+                Free plan available — no credit card required.
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── Install Guide Section ─────────────────────────────── -->
+    <section id="install" style="padding:100px 40px;background:#fafafa;border-top:1px solid #f0f0f0;">
+        <div style="max-width:900px;margin:0 auto;">
+
+            <div style="text-align:center;margin-bottom:56px;">
+                <div style="display:inline-block;padding:6px 16px;background:#f0f0ff;border-radius:20px;font-size:12px;font-weight:600;color:#6366f1;letter-spacing:1px;margin-bottom:16px;">INSTALL</div>
+                <h2 style="font-size:clamp(28px,4vw,44px);font-weight:700;color:#1e1e2e;margin-bottom:16px;line-height:1.2;">Use it like a real app.<br>No app store needed.</h2>
+                <p style="font-size:17px;color:#6b7280;max-width:500px;margin:0 auto;line-height:1.7;">Ennovyx works on any device, offline, with no browser bar — just tap and go.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px;">
+
+                <!-- iPhone -->
+                <div class="install-card" id="card-ios">
+                    <div class="install-card-header" style="background:linear-gradient(135deg,#1c1c1e,#2c2c2e);">
+                        <div class="install-platform-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        </div>
+                        <div>
+                            <div style="font-size:16px;font-weight:700;color:white;">iPhone / iPad</div>
+                            <div style="font-size:12px;color:rgba(255,255,255,0.55);margin-top:2px;">Safari required</div>
+                        </div>
+                    </div>
+                    <div class="install-steps">
+                        <div class="install-step">
+                            <div class="step-num">1</div>
+                            <div class="step-text">Open <strong>ennovyx.com</strong> in Safari</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">2</div>
+                            <div class="step-text">Tap the <strong>Share</strong> button <span style="display:inline-flex;align-items:center;background:#f3f4f6;border-radius:5px;padding:1px 6px;font-size:13px;gap:3px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2.5"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></span> at the bottom</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">3</div>
+                            <div class="step-text">Tap <strong>"Add to Home Screen"</strong></div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">4</div>
+                            <div class="step-text">Tap <strong>Add</strong> — done. Open it from your home screen like any app</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Android -->
+                <div class="install-card" id="card-android">
+                    <div class="install-card-header" style="background:linear-gradient(135deg,#1a7a4a,#22c55e);">
+                        <div class="install-platform-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.523 15.341a7.978 7.978 0 01-3.76 3.065l1.174 2.031a.5.5 0 01-.866.5l-1.19-2.062a7.948 7.948 0 01-3.762 0L7.93 20.937a.5.5 0 01-.866-.5l1.174-2.031A7.978 7.978 0 015.477 15.34H3a.5.5 0 010-1h18a.5.5 0 010 1h-3.477zM16 3.5l1.5-2.598a.5.5 0 01.866.5L16.88 3.56A8.002 8.002 0 0121 11H3a8.002 8.002 0 014.12-7.44L5.634 1.402a.5.5 0 01.866-.5L8 3.5a7.963 7.963 0 014 0zm-4 4a.5.5 0 100 1 .5.5 0 000-1zm-3.5.5a.5.5 0 111 0 .5.5 0 01-1 0zm7 0a.5.5 0 111 0 .5.5 0 01-1 0z"/></svg>
+                        </div>
+                        <div>
+                            <div style="font-size:16px;font-weight:700;color:white;">Android</div>
+                            <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">Chrome · auto-prompt</div>
+                        </div>
+                    </div>
+                    <div class="install-steps">
+                        <div class="install-step">
+                            <div class="step-num">1</div>
+                            <div class="step-text">Open <strong>ennovyx.com</strong> in Chrome</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">2</div>
+                            <div class="step-text">Chrome will show <strong>"Install Ennovyx"</strong> at the bottom automatically</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">3</div>
+                            <div class="step-text">Tap <strong>Install</strong> — it downloads like a real app</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num" style="background:#22c55e;">✓</div>
+                            <div class="step-text">Opens fullscreen, appears in your app drawer</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desktop -->
+                <div class="install-card" id="card-desktop">
+                    <div class="install-card-header" style="background:linear-gradient(135deg,#6366f1,#7c3aed);">
+                        <div class="install-platform-icon">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M20 3H4a2 2 0 00-2 2v11a2 2 0 002 2h7v2H9a1 1 0 000 2h6a1 1 0 000-2h-2v-2h7a2 2 0 002-2V5a2 2 0 00-2-2zm0 13H4V5h16v11z"/></svg>
+                        </div>
+                        <div>
+                            <div style="font-size:16px;font-weight:700;color:white;">Desktop</div>
+                            <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px;">Chrome · Edge · Brave</div>
+                        </div>
+                    </div>
+                    <div class="install-steps">
+                        <div class="install-step">
+                            <div class="step-num">1</div>
+                            <div class="step-text">Open <strong>ennovyx.com</strong> in Chrome or Edge</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">2</div>
+                            <div class="step-text">Look for the <strong>install icon</strong> <span style="display:inline-flex;align-items:center;background:#f3f4f6;border-radius:5px;padding:1px 6px;font-size:13px;">⊕</span> in the address bar</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num">3</div>
+                            <div class="step-text">Click <strong>"Install Ennovyx"</strong> in the popup</div>
+                        </div>
+                        <div class="install-step">
+                            <div class="step-num" style="background:#6366f1;">✓</div>
+                            <div class="step-text">Opens as its own window, no browser UI</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom CTA -->
+
+        </div>
+    </section>
+
+    <style>
+    .install-card {
+        background: white;
+        border-radius: 20px;
+        border: 1px solid #e5e7eb;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .install-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+    .install-card-header {
+        padding: 20px 22px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+    .install-platform-icon {
+        width: 48px; height: 48px;
+        background: rgba(255,255,255,0.15);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+    }
+    .install-steps { padding: 22px; display: flex; flex-direction: column; gap: 14px; }
+    .install-step { display: flex; align-items: flex-start; gap: 12px; }
+    .step-num {
+        width: 24px; height: 24px; border-radius: 50%;
+        background: #6366f1; color: white;
+        font-size: 11px; font-weight: 700;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0; margin-top: 1px;
+    }
+    .step-text { font-size: 14px; color: #374151; line-height: 1.55; }
+    .step-text strong { color: #111827; }
+    @media (max-width: 600px) {
+        #install { padding: 60px 20px !important; }
+    }
+    </style>
+
+    <section class="cta-section">
+        <div class="cta-container">
+            <div class="cta-icon">
+                <img src="images/icon-final.png" alt="">
+            </div>
+            <h2>Focus on learning.<br>Not managing apps.</h2>
+           <a href="/signup" data-link><button class="cta-btn">Get started FREE</button></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo"><div class="footer-logo-icon"><img src="images/icon-final.png" alt="" width="30px" height="30px"></div><span>Ennovyx</span></div>
+                <p class="footer-description">The all-in-one productivity system built specifically for students. Stay organized, focused, and achieve more.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a>
+                <a href="#install">Install</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="#install">Install App</a></li>
+                    <li><a href="/templates/updates.html">Updates</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="/templates/about.html">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="/templates/careers.html">Careers</a></li>
+                    <li><a href="/templates/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul class="footer-links">
+                    <li><a href="/templates/privacy.html">Privacy</a></li>
+                    <li><a href="/templates/terms.html">Terms</a></li>
+                    <li><a href="/templates/security.html">Security</a></li>
+                    <li><a href="/templates/cookiees.html">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2025 Ennovyx. All rights reserved.</p></div>
+    </footer>
+<script>
+const data = {
+    dashboard: {
+        title: "Your command center",
+        desc: "Get a complete overview of your academic life in one glance. Track pending tasks, see upcoming events, and monitor your productivity—all in one centralized dashboard.",
+        replaces: ["Multiple productivity apps", "Scattered to-do lists", "Calendar reminders"],
+        cards: [
+            { icon: '<i class="fas fa-chart-line"></i>', text: "Track all pending assignments" },
+            { icon: '<i class="fas fa-calendar-check"></i>', text: "View upcoming exams and deadlines" },
+            { icon: '<i class="fas fa-chart-bar"></i>', text: "Monitor daily productivity metrics" },
+            { icon: '<i class="fas fa-bolt"></i>', text: "Quick access to all features" }
+        ]
+    },
+    tasks: {
+        title: "Stay on top of everything",
+        desc: "Create, organize, and complete tasks with ease. Set priorities, due dates, and link tasks to subjects. Everything syncs automatically with your calendar and notifications.",
+        replaces: ["Todoist and Notion", "Sticky notes", "Google Tasks"],
+        cards: [
+            { icon: '<i class="fas fa-check-circle"></i>', text: "Create tasks with priority levels" },
+            { icon: '<i class="fas fa-clock"></i>', text: "Set due dates and reminders" },
+            { icon: '<i class="fas fa-link"></i>', text: "Link tasks to subjects" },
+            { icon: '<i class="fas fa-sync-alt"></i>', text: "Auto-sync with calendar & emails" }
+        ]
+    },
+    calendar: {
+        title: "Never miss a deadline",
+        desc: "Visualize your schedule with a monthly calendar view. Add exams, classes, and events. Task deadlines auto-populate, giving you a complete academic timeline.",
+        replaces: ["Google Calendar", "Apple Calendar", "Physical planners"],
+        cards: [
+            { icon: '<i class="fas fa-calendar"></i>', text: "Monthly calendar view" },
+            { icon: '<i class="fas fa-bell"></i>', text: "Auto-populated task deadlines" },
+            { icon: '<i class="fas fa-list"></i>', text: "All events in one timeline" },
+            { icon: '<i class="fas fa-plus-circle"></i>', text: "Quick event creation" }
+        ]
+    },
+    subjects: {
+        title: "Organize by subject",
+        desc: "Keep everything related to each class in one place. Each subject has its own notes, documents, and task list—perfectly organized for exams and semester planning.",
+        replaces: ["Multiple folders", "Separate notebooks", "Class management apps"],
+        cards: [
+            { icon: '<i class="fas fa-sticky-note"></i>', text: "Subject-specific notes with images" },
+            { icon: '<i class="fas fa-file-alt"></i>', text: "Upload & create documents per subject" },
+            { icon: '<i class="fas fa-tasks"></i>', text: "Dedicated task lists per subject" },
+            { icon: '<i class="fas fa-layer-group"></i>', text: "All course materials organized" }
+        ]
+    },
+    documents: {
+        title: "Write smarter",
+        desc: "Create essays, reports, and notes with a built-in editor. Assign documents to subjects, upload external files, and keep everything organized in one place.",
+        replaces: ["Google Docs", "Microsoft Word", "Separate note apps"],
+        cards: [
+            { icon: '<i class="fas fa-pen-nib"></i>', text: "Google Docs-style editor" },
+            { icon: '<i class="fas fa-upload"></i>', text: "Upload PDFs and external files" },
+            { icon: '<i class="fas fa-folder-open"></i>', text: "Assign docs to subjects" },
+            { icon: '<i class="fas fa-bell"></i>', text: "Auto-appear in notifications" }
+        ]
+    },
+    expenses: {
+        title: "Track your spending",
+        desc: "Monitor your budget and expenses in one place. Set monthly budgets, categorize spending, and visualize where your money goes with charts and insights.",
+        replaces: ["Mint or YNAB", "Excel spreadsheets", "Manual tracking"],
+        cards: [
+            { icon: '<i class="fas fa-wallet"></i>', text: "Set monthly budget limits" },
+            { icon: '<i class="fas fa-chart-pie"></i>', text: "Category visualizations" },
+            { icon: '<i class="fas fa-tags"></i>', text: "6 expense categories" },
+            { icon: '<i class="fas fa-arrow-trend-up"></i>', text: "Spending insights & analytics" }
+        ]
+    },
+    discipline: {
+        title: "Build better habits",
+        desc: "Track daily habits, maintain streaks, and build consistency. Set frequency (daily, weekly, weekdays), mark habits as done, and get motivational analytics.",
+        replaces: ["Habit tracking apps", "Paper checklists", "Streak counters"],
+        cards: [
+            { icon: '<i class="fas fa-bullseye"></i>', text: "Track daily, weekly, or weekday habits" },
+            { icon: '<i class="fas fa-chart-area"></i>', text: "Weekly & monthly analytics" },
+            { icon: '<i class="fas fa-fire"></i>', text: "Streak tracking & consistency scores" },
+            { icon: '<i class="fas fa-trophy"></i>', text: "Discipline score & best day insights" }
+        ]
+    },
+    ai: {
+        title: "Your AI research partner",
+        desc: "Meet e·brains — an AI built into every document you open. Ask it to explain a concept, summarize a topic, write a paragraph, or break down anything you're studying. It reads your document context and responds like a tutor sitting next to you.",
+        replaces: ["ChatGPT tabs", "Googling every question", "Asking friends to explain"],
+        cards: [
+            { icon: '<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\"><circle cx=\"12\" cy=\"12\" r=\"4\" fill=\"#fff\"/><circle cx=\"12\" cy=\"12\" r=\"8\" stroke=\"rgba(255,255,255,0.6)\" stroke-width=\"1\" stroke-dasharray=\"3 2\"/><circle cx=\"12\" cy=\"3\" r=\"1.5\" fill=\"#fff\"/><circle cx=\"12\" cy=\"21\" r=\"1.5\" fill=\"#fff\"/><circle cx=\"3\" cy=\"12\" r=\"1.5\" fill=\"rgba(255,255,255,0.7)\"/><circle cx=\"21\" cy=\"12\" r=\"1.5\" fill=\"rgba(255,255,255,0.7)\"/></svg>', text: "Explain any topic simply", bg: "#6366f1" },
+            { icon: '<i class="fas fa-file-alt"></i>', text: "Summarize your documents instantly", bg: "#7c3aed" },
+            { icon: '<i class="fas fa-pen-nib"></i>', text: "Write paragraphs and essays with you", bg: "#8b5cf6" },
+            { icon: '<i class="fas fa-bolt"></i>', text: "15 free questions daily, always ready", bg: "#6366f1" }
+        ]
+    }
+};
+    function updateFeature(f) {
+        document.querySelectorAll('.feature-tab').forEach(t => t.classList.remove('active'));
+        event.target.classList.add('active');
+        const d = data[f];
+        const els = {
+            title: document.getElementById('title'),
+            desc: document.getElementById('desc'),
+            replaces: document.getElementById('replaces'),
+            visual: document.getElementById('visual')
+        };
+        Object.values(els).forEach(el => el.style.opacity = '0');
+        setTimeout(() => {
+            els.title.textContent = d.title;
+            els.desc.textContent = d.desc;
+            els.replaces.innerHTML = d.replaces.map(r => `<li>${r}</li>`).join('');
+            els.visual.innerHTML = `
+                <div class="feature-cards">
+                    ${d.cards.map(c => `
+                        <div class="feature-card" style="${f==='ai'?'background:linear-gradient(135deg,#eef2ff,#f5f3ff);border-color:#e0e7ff;':''}">
+                            <div class="feature-card-icon" style="${c.bg?'background:'+c.bg+';':''}">${c.icon}</div>
+                            <div class="feature-card-text" style="${f==='ai'?'color:#3730a3;font-weight:500;':''}">${c.text}</div>
+                        </div>
+                    `).join('')}
+                </div>`;
+            Object.values(els).forEach(el => el.style.opacity = '1');
+        }, 200);
+    }
+</script>
+<style>
+@keyframes spin { to { transform: rotate(360deg); } }
+.geo-price-card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px;
+  position: relative;
+  border: 2px solid #d4d0f5;
+  box-shadow: 0 4px 0 0 #b8b3ed, 0 8px 40px rgba(99,102,241,0.1);
+  min-height: 140px;
+  align-items: center;
+  justify-content: center;
+}
+.geo-spinner {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 3px solid #e0e0f0; border-top-color: #6366f1;
+  animation: spin 0.8s linear infinite;
+}
+.geo-region-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.4px;
+  padding: 4px 12px; border-radius: 20px; margin-bottom: 18px;
+}
+.geo-region-tag.local {
+  background: linear-gradient(135deg,rgba(79,70,229,0.1),rgba(124,58,237,0.1));
+  border: 1px solid rgba(99,102,241,0.25); color: #6366f1;
+}
+.geo-region-tag.global {
+  background: rgba(30,30,46,0.07); border: 1px solid rgba(30,30,46,0.15); color: #4e4e70;
+}
+.price-strike {
+  font-size: 14px; color: #a0a0b8; text-decoration: line-through; margin-bottom: 4px;
+}
+.price-free-badge {
+  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 8px; border-radius: 6px;
+  background: #dcfce7; color: #16a34a; margin-left: 8px;
+  vertical-align: middle;
+}
+</style>
+<script>
+const DEV_COUNTRIES = new Set([
+  'PK','IN','BD','NG','EG','PH','VN','ID','GH','KE','TZ','UG','ET','MZ',
+  'MW','ZM','ZW','SD','SS','ML','BF','NE','TD','CF','SO','MR','SN','GN',
+  'SL','LR','CI','TG','BJ','RW','BI','DJ','KM','MG','MU','SC','AF','NP',
+  'MM','KH','LA','YE','IQ','SY','LY','DZ','TN','MA'
+]);
+
+async function detectCountry() {
+  // No cache - always fresh so VPN changes are reflected immediately
+  const tryApi = async (fn) => {
+    try { const r = await fn(); if (r && r.length === 2) return r.toUpperCase(); } catch(e) {}
+    return null;
+  };
+
+  // Run all in parallel, take first non-null result
+  const results = await Promise.allSettled([
+    tryApi(() => fetch('https://api.country.is/', {signal: AbortSignal.timeout(6000)}).then(r=>r.json()).then(d=>d.country)),
+    tryApi(() => fetch('https://ipwho.is/', {signal: AbortSignal.timeout(6000)}).then(r=>r.json()).then(d=>d.country_code)),
+    tryApi(() => fetch('https://freeipapi.com/api/json', {signal: AbortSignal.timeout(6000)}).then(r=>r.json()).then(d=>d.countryCode)),
+    tryApi(() => fetch('https://ipapi.co/json/', {signal: AbortSignal.timeout(6000)}).then(r=>r.json()).then(d=>d.country_code)),
+  ]);
+
+  for (const r of results) {
+    if (r.status === 'fulfilled' && r.value) return r.value;
+  }
+  return null;
+}
+
+(async function() {
+  const card = document.getElementById('geoPricingCard');
+  if (!card) return;
+
+  try {
+    // Always detect from client — never rely on server isLocal flag
+    let country = await detectCountry();
+
+    const isPK = DEV_COUNTRIES.has(country);
+    const price = isPK ? 1 : 4;
+    const planName = isPK ? 'LOCAL PLAN' : 'STANDARD PLAN';
+    const regionLabel = isPK ? 'Pakistan & South Asia' : 'International';
+    const regionClass = isPK ? 'local' : 'global';
+    const regionIcon = isPK ? '<i class="bx bx-map-pin"></i>' : '<i class="bx bx-globe"></i>';
+    const subText = isPK ? '≈ PKR 280 · Billed monthly' : 'All regions outside South Asia';
+    const features = isPK ? [
+      'All core features',
+      'Ennovyx Brains AI (15 q/day)',
+      'Daily email summary',
+      'Unlimited documents',
+      'Tasks, calendar, expenses'
+    ] : [
+      'All core features',
+      'Ennovyx Brains AI (15 q/day)',
+      'Priority support',
+      'Daily email summary',
+      'Early access to new features'
+    ];
+    const btnBg = isPK ? 'linear-gradient(135deg,#4f46e5,#7c3aed)' : '#1e1e2e';
+
+    // Keep CSS class styles, just update content
+    card.style.alignItems = 'flex-start';
+    card.style.justifyContent = 'flex-start';
+    card.innerHTML = `
+      <div class="geo-region-tag ${regionClass}">${regionIcon} ${regionLabel}</div>
+      <div class="price-strike">$${price}/month</div>
+      <div style="display:flex;align-items:baseline;gap:4px;margin-bottom:2px;">
+        <span style="font-size:46px;font-weight:800;color:#1e1e2e;line-height:1;">Free</span>
+        <span class="price-free-badge">for now</span>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:#6868a0;letter-spacing:0.4px;margin-bottom:6px;">${planName} · launches at $${price}/mo</div>
+      <div style="font-size:12px;color:#a0a0b8;margin-bottom:24px;">${subText}</div>
+      <ul style="list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:9px;">
+        ${features.map(f => `<li style="font-size:14px;color:#4e4e70;display:flex;align-items:center;gap:8px;"><span style="color:#6366f1;font-weight:600;">✓</span> ${f}</li>`).join('')}
+      </ul>
+      <a href="/signup"><button style="width:100%;background:${btnBg};color:white;padding:13px;border:none;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.2s" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">Get started free →</button></a>
+    `;
+  } catch(e) {
+    card.innerHTML = '<p style="color:#a0a0b8;text-align:center;font-size:14px;padding:20px">Starting free · <a href="/signup" style="color:#6366f1">Get started</a></p>';
+  }
+})();
+</script>
+</body>
+</html>

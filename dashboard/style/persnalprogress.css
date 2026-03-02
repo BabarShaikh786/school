@@ -1,0 +1,645 @@
+/* ========================================
+   DISCIPLINE TRACKER - CSS VARIABLES VERSION
+   ======================================== */
+
+:root {
+    --discipline-success: #00c853;
+    --discipline-warning: #ff9100;
+    --discipline-complete-bg: var(--discipline-success);
+    --discipline-partial-bg: var(--discipline-warning);
+}
+
+body.dark-theme {
+    --discipline-success: #4caf50;
+    --discipline-warning: #ffa726;
+}
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+
+.xz9_primary_container_wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 20px;
+}
+
+/* ========================================
+   HERO METRIC
+   ======================================== */
+
+.qw7_metric_hero_display_zone {
+    text-align: center;
+    margin-bottom: 80px;
+    padding: 20px 0;
+}
+
+.rt3_numeric_score_visualization {
+    font-size: 120px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+}
+
+.pl8_descriptor_text_label {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.km2_motivational_feedback_string {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.vb4_horizontal_navigation_bar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 60px;
+    background: var(--bg-hover);
+    padding: 4px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-primary);
+}
+
+.jf5_nav_interactive_button {
+    flex: 1;
+    padding: 12px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.jf5_nav_interactive_button:hover {
+    color: var(--text-primary);
+}
+
+.jf5_nav_interactive_button.zx1_state_is_active {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   VIEWS
+   ======================================== */
+
+.mg8_content_view_container {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.mg8_content_view_container.zx1_state_is_active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ========================================
+   TODAY VIEW
+   ======================================== */
+
+.nh6_temporal_date_indicator {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+.df9_repeatable_tasks_list_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 40px;
+}
+
+/* ========================================
+   HABIT CARDS
+   ======================================== */
+
+.lp2_individual_habit_card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.lp2_individual_habit_card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--discipline-success);
+    transform: scaleY(0);
+    transition: transform var(--transition-normal);
+}
+
+.lp2_individual_habit_card.wy7_completion_marked::before {
+    transform: scaleY(1);
+}
+
+.lp2_individual_habit_card:hover {
+    background: var(--bg-active);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.lp2_individual_habit_card.wy7_completion_marked {
+    opacity: 0.5;
+}
+
+/* ========================================
+   CHECKBOX
+   ======================================== */
+
+.uc3_circular_checkbox_indicator {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-normal);
+    flex-shrink: 0;
+}
+
+.lp2_individual_habit_card.wy7_completion_marked .uc3_circular_checkbox_indicator {
+    background: var(--discipline-success);
+    border-color: var(--discipline-success);
+}
+
+.ts4_checkmark_svg_icon {
+    opacity: 0;
+    transform: scale(0);
+    transition: all var(--transition-normal);
+    color: var(--text-inverted);
+}
+
+.lp2_individual_habit_card.wy7_completion_marked .ts4_checkmark_svg_icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ========================================
+   HABIT TEXT
+   ======================================== */
+
+.bv5_habit_text_content_area {
+    flex: 1;
+}
+
+.op6_primary_habit_title_text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+}
+
+.xk1_secondary_metadata_text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* ========================================
+   ADD HABIT BUTTON
+   ======================================== */
+
+.nr8_create_new_habit_button {
+    width: 100%;
+    padding: 16px;
+    background: var(--bg-hover);
+    border: 1px dashed var(--border-primary);
+    border-radius: var(--radius-xl);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.nr8_create_new_habit_button:hover {
+    background: var(--bg-active);
+    border-color: var(--text-primary);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   STATISTICS GRID
+   ======================================== */
+
+.hm4_statistics_grid_layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+.yj9_single_stat_display_card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.yj9_single_stat_display_card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.ik7_large_numeric_stat_value {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gp3_stat_description_label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* ========================================
+   SECTIONS
+   ======================================== */
+
+.tl5_content_section_block {
+    margin-bottom: 48px;
+}
+
+.ao2_section_heading_title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+}
+
+/* ========================================
+   CALENDAR GRID
+   ======================================== */
+
+.cn6_seven_day_calendar_grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+}
+
+.qs8_individual_day_block_cell {
+    aspect-ratio: 1;
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all var(--transition-normal);
+}
+
+.qs8_individual_day_block_cell:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.qs8_individual_day_block_cell.fe1_fully_completed_state {
+    background: var(--discipline-success);
+    border-color: var(--discipline-success);
+}
+
+.qs8_individual_day_block_cell.mn3_partially_completed_state {
+    background: var(--discipline-warning);
+    border-color: var(--discipline-warning);
+}
+
+.uv4_abbreviated_day_name_label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.qs8_individual_day_block_cell.fe1_fully_completed_state .uv4_abbreviated_day_name_label,
+.qs8_individual_day_block_cell.mn3_partially_completed_state .uv4_abbreviated_day_name_label {
+    color: var(--text-inverted);
+}
+
+.px7_completion_count_number {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+.qs8_individual_day_block_cell.fe1_fully_completed_state .px7_completion_count_number,
+.qs8_individual_day_block_cell.mn3_partially_completed_state .px7_completion_count_number {
+    color: var(--text-inverted);
+}
+
+/* ========================================
+   INSIGHTS
+   ======================================== */
+
+.rw5_insights_messages_container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.dj6_single_insight_message_card {
+    background: var(--bg-hover);
+    border: 1px solid var(--border-primary);
+    border-left: 3px solid var(--discipline-success);
+    border-radius: var(--radius-lg);
+    padding: 20px 24px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+
+.oh9_overlay_modal_backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--modal-overlay);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.oh9_overlay_modal_backdrop.zx1_state_is_active {
+    display: flex;
+}
+
+.sl7_modal_content_card_box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-2xl);
+    max-width: 480px;
+    width: 100%;
+    padding: 40px;
+    box-shadow: var(--shadow-xl);
+    transition: background-color var(--transition-normal);
+}
+
+.wi2_modal_header_title_text {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+/* ========================================
+   FORM
+   ======================================== */
+
+.nq4_form_input_field_group {
+    margin-bottom: 24px;
+}
+
+.ez8_input_label_descriptor {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.gt1_text_input_field_element,
+.yl5_dropdown_select_element {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: inherit;
+    transition: all var(--transition-fast);
+}
+
+.gt1_text_input_field_element:focus,
+.yl5_dropdown_select_element:focus {
+    outline: none;
+    border-color: var(--text-primary);
+    background: var(--input-focus-bg);
+}
+
+.gt1_text_input_field_element::placeholder {
+    color: var(--input-placeholder);
+}
+
+/* ========================================
+   BUTTON ACTIONS
+   ======================================== */
+
+.kd3_action_buttons_row_container {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.wp6_generic_clickable_button {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+}
+
+.qc9_primary_action_button_style {
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-text);
+}
+
+.qc9_primary_action_button_style:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.hx7_secondary_action_button_style {
+    background: var(--bg-active);
+    color: var(--text-primary);
+    border: 1px solid var(--border-primary);
+}
+
+.hx7_secondary_action_button_style:hover {
+    background: var(--border-primary);
+}
+
+/* ========================================
+   EMPTY STATE
+   ======================================== */
+
+.tw9_empty_state_placeholder_zone {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.vk5_empty_state_icon_symbol {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+}
+
+.bi8_empty_primary_message_text {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.lu1_empty_secondary_hint_text {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    opacity: 0.6;
+}
+
+/* ========================================
+   CELEBRATION POPUP
+   ======================================== */
+
+.ak4_success_celebration_overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 2000;
+}
+
+.ak4_success_celebration_overlay.zx1_state_is_active {
+    display: flex;
+}
+
+.xm2_celebration_popup_content_box {
+    background: var(--card-bg);
+    border: 1px solid var(--border-primary);
+    padding: 48px;
+    border-radius: var(--radius-2xl);
+    text-align: center;
+    animation: celebrationPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: var(--shadow-xl);
+}
+
+@keyframes celebrationPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.zn6_celebration_emoji_icon {
+    font-size: 80px;
+    margin-bottom: 16px;
+}
+
+.pq8_celebration_message_text {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .xz9_primary_container_wrapper {
+        padding: 40px 16px;
+    }
+
+    .rt3_numeric_score_visualization {
+        font-size: 80px;
+    }
+
+    .hm4_statistics_grid_layout {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cn6_seven_day_calendar_grid {
+        gap: 8px;
+    }
+
+    .px7_completion_count_number {
+        font-size: 14px;
+    }
+
+    .sl7_modal_content_card_box {
+        padding: 24px;
+    }
+}
